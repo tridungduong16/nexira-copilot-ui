@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
+import HomePage from './components/HomePage';
 import AuthCallback from './components/AuthCallback';
 // removed unused AIAgents import
 import AgentsPage from './components/AgentsPage';
@@ -31,14 +32,15 @@ function App() {
   const navigate = useNavigate();
   const currentPage = useMemo(() => {
     const path = location.pathname.replace(/^\/+/, '');
-    if (path === '' || path === 'marketplace') return 'agents';
+    if (path === '' || path === 'home') return 'home';
+    if (path === 'marketplace') return 'agents';
     if (path.endsWith('-analyst')) return path;
     if (path === 'knowledge') return 'knowledge';
     if (path === 'settings') return 'settings';
     if (path === 'help' || path === 'support-tickets' || path === 'all-support-tickets') return 'help';
     if (path.startsWith('tickets/')) return 'tickets';
     if (path === 'chat') return 'chat';
-    return 'agents';
+    return 'home';
   }, [location.pathname]);
   const [initialPrompt, setInitialPrompt] = useState<string | undefined>(undefined);
   const { resolvedTheme } = useTheme();
@@ -46,8 +48,9 @@ function App() {
 
   const renderRoutes = () => (
     <Routes>
-      <Route path="/" element={<Navigate to="/marketplace" replace />} />
+      <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/marketplace" element={<AgentsPage onAgentSelect={(agentId) => navigate(`/${agentId}-analyst`)} />} />
       <Route path="/finance-analyst" element={<FinanceAnalystPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/prompt-optimizer-analyst" element={<PromptOptimizerPage onBack={() => navigate('/marketplace')} />} />
@@ -66,9 +69,9 @@ function App() {
       <Route path="/support-tickets" element={<HelpPage />} />
       <Route path="/tickets/:ticketId" element={<TicketDetailPage onBack={() => navigate('/help')} />} />
       <Route path="/chat" element={<ChatPage initialPrompt={initialPrompt} />} />
-      <Route path="/help" element={<SupportTicketsPage onBack={() => navigate('/marketplace')} />} />
+      <Route path="/help" element={<SupportTicketsPage onBack={() => navigate('/home')} />} />
       <Route path="/all-support-tickets" element={<AllSupportTicketPage onBack={() => navigate('/help')} />} />
-      <Route path="*" element={<Navigate to="/marketplace" replace />} />
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 
@@ -76,17 +79,19 @@ function App() {
     <div
       className={
         `min-h-screen ` +
-        ((currentPage === 'agents')
+        (currentPage === 'home'
           ? (resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]')
-          : (currentPage.endsWith('-analyst'))
-            ? 'bg-[#E6F0FF]'
-            : currentPage === 'settings'
-              ? (resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]')
-              : (currentPage === 'knowledge' || currentPage === 'help' || currentPage === 'tickets')
+          : (currentPage === 'agents')
+            ? (resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]')
+            : (currentPage.endsWith('-analyst'))
+              ? 'bg-[#E6F0FF]'
+              : currentPage === 'settings'
                 ? (resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]')
-                : currentPage === 'chat'
-                  ? 'bg-[#001F3F] overflow-hidden'
-                  : 'bg-[#E6F0FF]')
+                : (currentPage === 'knowledge' || currentPage === 'help' || currentPage === 'tickets')
+                  ? (resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]')
+                  : currentPage === 'chat'
+                    ? 'bg-[#001F3F] overflow-hidden'
+                    : 'bg-[#E6F0FF]')
       }
     >
       {!isAgentDetailPage && currentPage !== 'chat' && (

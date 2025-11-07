@@ -137,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({
     }
   }, []);
   const handleNavClick = (page: string) => {
-    const path = page === 'agents' ? '/marketplace' : `/${page}`;
+    const path = page === 'home' ? '/home' : page === 'agents' ? '/marketplace' : `/${page}`;
     if ((page === 'agents' && currentPage === 'agents') || page === currentPage) {
       return;
     }
@@ -149,7 +149,7 @@ const Header: React.FC<HeaderProps> = ({
     }, 250);
   };
 
-  const isGlass = ['agents', 'knowledge', 'settings', 'help', 'chat', 'tickets'].includes(currentPage);
+  const isGlass = ['home', 'agents', 'knowledge', 'settings', 'help', 'chat', 'tickets'].includes(currentPage);
 
   // using GlassButton below instead of navBtnClass
 
@@ -162,7 +162,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Logo */}
           <div
             className="flex items-center space-x-3 cursor-pointer"
-            onClick={() => handleNavClick('agents')}
+            onClick={() => handleNavClick('home')}
           >
             <div className="w-10 h-10">
               <img
@@ -177,6 +177,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-3 absolute left-1/2 -translate-x-1/2">
             {([
+              {k: 'home', label: t('header.home')},
               {k: 'agents', label: t('header.marketplace')},
               {k: 'knowledge', label: t('header.knowledge')},
               {k: 'settings', label: t('header.settings')},
@@ -246,6 +247,12 @@ const Header: React.FC<HeaderProps> = ({
       {isMobileMenuOpen && (
         <div className={`md:hidden ${isGlass ? 'border-transparent bg-transparent backdrop-blur-md' : 'border-t border-gray-200 bg-white'}`}>
           <div className="px-2 pt-2 pb-3 space-y-1">
+            <button
+              onClick={() => handleNavClick('home')}
+              className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'home' ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
+            >
+              {t('header.home')}
+            </button>
             <button
               onClick={() => handleNavClick('agents')}
               className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'agents' || currentPage.includes('-analyst') ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
