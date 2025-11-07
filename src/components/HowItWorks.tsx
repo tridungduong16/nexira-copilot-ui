@@ -27,7 +27,7 @@ const steps = [
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="py-20">
+    <section className="py-20 bg-[#0B0C0F]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How It Works</h2>
@@ -40,7 +40,7 @@ const HowItWorks: React.FC = () => {
 						return (
               <div key={step.step} className="text-center relative">
                 <div className="flex justify-center mb-6">
-                  <div className={`p-4 rounded-xl bg-gradient-to-r ${step.color} shadow-lg`}>
+                  <div className="p-4 rounded-xl bg-white/10 border border-white/10">
                     <IconComponent className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -67,7 +67,7 @@ const HowItWorks: React.FC = () => {
 				</div>
 
         <div className="mt-16 text-center">
-          <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-500 hover:to-indigo-500 transition-all duration-200 transform hover:scale-105 shadow-lg">
+          <button className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-200">
             Get Started Now
           </button>
         </div>

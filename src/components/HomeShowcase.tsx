@@ -30,16 +30,17 @@ const HomeShowcase: React.FC = () => {
   ];
 
   return (
-    <section className="pt-12 sm:pt-16 pb-16">
+    <section className="py-16 sm:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* remove SnowUI header to let background breathe */}
-
         {/* Tiles */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10">
           {tiles.map((tile) => {
             const Icon = tile.icon;
             return (
-              <div key={tile.id} className={`rounded-[32px] p-8 sm:p-10 ${tile.className}`}>
+              <div
+                key={tile.id}
+                className="rounded-3xl p-8 sm:p-10 bg-white/5 border border-white/10 backdrop-blur-sm text-white hover:bg-white/10 transition-all duration-300"
+              >
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-3">
                     <div className="p-3 rounded-xl bg-white/10">
@@ -48,9 +49,9 @@ const HomeShowcase: React.FC = () => {
                     <h3 className="text-xl font-semibold">{tile.title}</h3>
                   </div>
                 </div>
-                <p className="text-sm sm:text-base text-gray-300/90 max-w-md">{tile.subtitle}</p>
+                <p className="text-sm sm:text-base text-gray-300 max-w-md">{tile.subtitle}</p>
                 <div className="mt-8">
-                  <button className="inline-flex items-center gap-2 text-sm font-medium text-white/90 hover:text-white">
+                  <button className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">
                     <span>Explore</span>
                     <ArrowRight className="h-4 w-4" />
                   </button>
