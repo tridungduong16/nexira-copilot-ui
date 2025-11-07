@@ -413,46 +413,30 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="space-y-6">
-          {/* Use Case Selection - Expanded */}
-          <div className={`${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'} border ${resolvedTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'} rounded-xl shadow-sm`}>
-            <div className="p-6 border-b border-gray-200">
-              <h2 className={`text-lg font-semibold ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-900'} flex items-center`}>
-                <Brain className="h-5 w-5 mr-2 text-cyan-600" />
-                {t('promptOptimizerPage.selectTask')}
-              </h2>
-              <p className={`text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mt-1`}>
-                {t('promptOptimizerPage.selectTaskSubtitle')}
-              </p>
-            </div>
-            
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {useCases.map((useCase) => {
-                  const IconComponent = useCase.icon;
-                  return (
-                    <button
-                      key={useCase.id}
-                      onClick={() => setSelectedUseCase(useCase.id)}
-                      className={`flex flex-col items-start p-4 rounded-lg border transition-all hover:shadow-md ${
-                        selectedUseCase === useCase.id
-                          ? `${resolvedTheme === 'dark' ? 'border-cyan-500' : 'border-cyan-500'} ${useCase.bgColor} shadow-sm`
-                          : `${resolvedTheme === 'dark' ? 'border-gray-400 hover:border-gray-300' : 'border-gray-200 hover:border-gray-300'} ${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'}`
-                      }`}
-                    >
-                      <div className="flex items-center space-x-3 mb-2">
-                        <IconComponent className={`h-5 w-5 ${selectedUseCase === useCase.id ? useCase.color : 'text-gray-300'}`} />
-                        <span className={`font-medium ${selectedUseCase === useCase.id ? 'text-gray-900' : 'text-gray-400'}`}>
-                          {useCase.name}
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-400 text-left leading-relaxed">
-                        {useCase.description}
-                      </p>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+          {/* Use Case Selection - Dropdown */}
+          <div className={`${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'} border ${resolvedTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'} rounded-xl shadow-sm p-6`}>
+            <label className={`block text-sm font-semibold mb-3 ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'} flex items-center`}>
+              <Brain className="h-5 w-5 mr-2 text-cyan-600" />
+              {t('promptOptimizerPage.selectTask')}
+            </label>
+            <select
+              value={selectedUseCase}
+              onChange={(e) => setSelectedUseCase(e.target.value)}
+              className={`w-full rounded-lg px-4 py-3 border focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all ${
+                resolvedTheme === 'dark'
+                  ? 'bg-white/5 border-white/10 text-gray-200'
+                  : 'bg-white border-gray-200 text-gray-900'
+              }`}
+            >
+              {useCases.map((useCase) => {
+                const IconComponent = useCase.icon;
+                return (
+                  <option key={useCase.id} value={useCase.id}>
+                    {useCase.name} — {useCase.description}
+                  </option>
+                );
+              })}
+            </select>
           </div>
 
           {/* Original Prompt Input */}
