@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Home theme tokens and helpers */
+:root {
+  --home-bg-from: #0B0C0F;
+  --home-bg-to: #13151A;
+  --home-accent: #8B5CF6; /* violet */
+  --home-accent-2: #06B6D4; /* cyan */
+  --home-surface: rgba(255, 255, 255, 0.05);
+  --home-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Trill palette (can be tuned to match the shared design) */
+.trill-theme {
+  /* Pastel pink → sky blue like the provided design */
+  --home-bg-from: #F6D6E1; /* soft pink */
+  --home-bg-to: #ADC8F7;   /* soft sky blue */
+  --home-accent: #FFFFFF;
+  --home-accent-2: #FFFFFF;
+}
+
+.bg-home { background: linear-gradient(180deg, var(--home-bg-from), var(--home-bg-to)); }
+.bg-trill-pastel {
+  background:
+    radial-gradient(120% 80% at 85% 25%, #F3CFE0 0%, rgba(243, 207, 224, 0.6) 45%, rgba(243, 207, 224, 0) 70%),
+    radial-gradient(110% 70% at 20% 70%, #B4CCFF 0%, rgba(180, 204, 255, 0.55) 45%, rgba(180, 204, 255, 0) 72%),
+    linear-gradient(180deg, var(--home-bg-from), var(--home-bg-to));
+}
+
+.bg-trill-image {
+  /* Prefer secondary.png; fallback to existing secondary.jpg */
+  background-image: url('/figma/pink.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.btn-accent { background-image: linear-gradient(90deg, var(--home-accent), var(--home-accent-2)); }
+.text-accent { color: var(--home-accent); }
+.border-surface { border-color: var(--home-border); }
+.bg-surface { background-color: var(--home-surface); }
+
+/* Glass UI helpers */
+.btn-glass {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.chip-glass {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* iOS-like liquid glass (higher transparency + stronger blur + subtle inner highlight) */
+.glass-ios {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+.glass-ios-hover:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* White glass for light cards on dark backgrounds */
+.glass-white {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 8px 28px rgba(0,0,0,0.12);
+}
+.glass-white-hover:hover {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar styling for in-app scrollable areas (e.g., HR chat history) */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent; /* thumb, track */
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1; /* slate-300 */
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Hide scrollbars but keep scrolling */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar { /* Chrome, Safari and Opera */
+  width: 0 !important;
+  height: 0 !important;
+}
