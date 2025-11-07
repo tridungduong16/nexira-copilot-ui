@@ -137,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({
     }
   }, []);
   const handleNavClick = (page: string) => {
-    const path = page === 'home' ? '/home' : page === 'agents' ? '/marketplace' : `/${page}`;
+    const path = page === 'agents' ? '/marketplace' : `/${page}`;
     if ((page === 'agents' && currentPage === 'agents') || page === currentPage) {
       return;
     }
@@ -149,7 +149,7 @@ const Header: React.FC<HeaderProps> = ({
     }, 250);
   };
 
-  const isGlass = ['home', 'agents', 'knowledge', 'settings', 'help', 'chat', 'tickets'].includes(currentPage);
+  const isGlass = ['agents', 'knowledge', 'settings', 'help', 'chat', 'tickets'].includes(currentPage);
 
   // using GlassButton below instead of navBtnClass
 
@@ -160,24 +160,23 @@ const Header: React.FC<HeaderProps> = ({
         <div className={`${currentPage === 'home' ? 'mt-2 md:mt-3 rounded-full glass-ios px-4' : 'mt-2 md:mt-3 rounded-full glass-white glass-white-hover px-4'} }`}>
         <div className="flex justify-between items-center h-16 relative">
           {/* Logo */}
-          <div 
+          <div
             className="flex items-center space-x-3 cursor-pointer"
-            onClick={() => handleNavClick('home')}
+            onClick={() => handleNavClick('agents')}
           >
             <div className="w-10 h-10">
-              <img 
+              <img
                 src="/image.png"
-                alt="Nexira AI" 
+                alt="Nexira AI"
                 className="w-full h-full object-contain"
               />
             </div>
-            <h1 className={`text-xl font-bold leading-none ${currentPage === 'home' ? 'text-white' : 'text-[#0B63CE]'}`}>{t('header.nexiraAI')}</h1>
+            <h1 className="text-xl font-bold leading-none text-[#0B63CE]">{t('header.nexiraAI')}</h1>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-3 absolute left-1/2 -translate-x-1/2">
             {([
-              {k: 'home', label: t('header.home')},
               {k: 'agents', label: t('header.marketplace')},
               {k: 'knowledge', label: t('header.knowledge')},
               {k: 'settings', label: t('header.settings')},
@@ -185,14 +184,14 @@ const Header: React.FC<HeaderProps> = ({
             ] as const).map((item) => {
               const isActive = currentPage === item.k || (item.k === 'agents' && currentPage.includes('-analyst'));
               if (isGlass) {
-                const navToneClass = currentPage === 'home' ? 'glass-ios glass-ios-hover' : 'glass-white glass-white-hover';
+                const navToneClass = 'glass-white glass-white-hover';
                 return (
                   <GlassButton
                     key={item.k}
                     className={`px-4 py-2 rounded-full ${navToneClass} ${isActive ? 'opacity-100' : 'opacity-80'}`}
                     onClick={() => handleNavClick(item.k)}
                   >
-                    <span className={`font-medium ${currentPage === 'home' ? 'text-white' : isActive ? 'text-[#0B63CE]' : 'text-gray-700'}`}>{item.label}</span>
+                    <span className={`font-medium ${isActive ? 'text-[#0B63CE]' : 'text-gray-700'}`}>{item.label}</span>
                   </GlassButton>
                 );
               }
@@ -214,7 +213,7 @@ const Header: React.FC<HeaderProps> = ({
             {userName ? (
               <button
                 onClick={() => navigate('/settings')}
-                className={`${isGlass ? 'btn-glass' : 'bg-white'} pl-2 pr-3 py-1.5 rounded-full flex items-center gap-2 ${currentPage === 'home' ? 'text-white' : 'text-[#0B63CE]'}`}
+                className={`${isGlass ? 'btn-glass' : 'bg-white'} pl-2 pr-3 py-1.5 rounded-full flex items-center gap-2 text-[#0B63CE]`}
                 title="Open settings"
               >
                 <img src={userAvatar || '/figma/icon-user-circle.svg'} alt="avatar" className="h-6 w-6 rounded-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/figma/icon-user-circle.svg'; }} />
@@ -223,7 +222,7 @@ const Header: React.FC<HeaderProps> = ({
             ) : (
               <button
                 onClick={() => setShowLogin(true)}
-                className={`${isGlass ? 'btn-glass' : 'bg-white'} px-3 py-2 rounded-full flex items-center gap-2 ${currentPage === 'home' ? 'text-white' : 'text-[#0B63CE]'}`}
+                className={`${isGlass ? 'btn-glass' : 'bg-white'} px-3 py-2 rounded-full flex items-center gap-2 text-[#0B63CE]`}
                 title="Sign in"
               >
                 <LogIn className="h-4 w-4" />
@@ -247,13 +246,7 @@ const Header: React.FC<HeaderProps> = ({
       {isMobileMenuOpen && (
         <div className={`md:hidden ${isGlass ? 'border-transparent bg-transparent backdrop-blur-md' : 'border-t border-gray-200 bg-white'}`}>
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <button 
-              onClick={() => handleNavClick('home')}
-              className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'home' ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
-            >
-              {t('header.home')}
-            </button>
-            <button 
+            <button
               onClick={() => handleNavClick('agents')}
               className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'agents' || currentPage.includes('-analyst') ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
             >

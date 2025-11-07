@@ -139,11 +139,28 @@ class KnowledgeService {
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+        // Try to parse JSON error, but handle HTML responses gracefully
+        let errorMessage = `HTTP error! status: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.detail || errorData.message || errorMessage;
+        } catch {
+          // If JSON parsing fails, it's likely an HTML error page
+          const contentType = response.headers.get('content-type');
+          if (contentType?.includes('text/html')) {
+            errorMessage = 'Knowledge base API endpoint not available. Please check backend configuration.';
+          }
+        }
+        throw new Error(errorMessage);
       }
 
-      return await response.json();
+      // Try to parse as JSON, handle non-JSON responses
+      const contentType = response.headers.get('content-type');
+      if (contentType?.includes('application/json')) {
+        return await response.json();
+      } else {
+        throw new Error('Server returned non-JSON response. API may not be configured correctly.');
+      }
     } catch (error) {
       console.error('API request failed:', error);
       throw error;

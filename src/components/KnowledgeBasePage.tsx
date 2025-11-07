@@ -25,12 +25,16 @@ const KnowledgeBasePage: React.FC = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
+      setError(null);
       const response = showStarred
         ? await knowledgeService.getMyStarred({ page: filters.page, limit: filters.limit })
         : await knowledgeService.getPosts({ page: filters.page, limit: filters.limit, category: filters.category });
       setPosts(response.posts || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load posts');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load posts';
+      console.error('Knowledge page error:', errorMessage);
+      setError(errorMessage);
+      setPosts([]);
     } finally {
       setLoading(false);
     }
@@ -110,13 +114,16 @@ const KnowledgeBasePage: React.FC = () => {
               placeholder={t('knowledgePage.searchPlaceholder')}
               rows={1}
               onKeyDown={(e) => {
-                // Allow spaces and Shift+Enter for newline; Enter triggers search submit (prevent form submit if any)
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
                   runSearch(searchQuery);
                 }
               }}
-              className="w-full rounded-xl px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
+              className="w-full rounded-xl px-4 py-2 border text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 resize-none"
+              style={{
+                background: 'rgba(11, 99, 206, 0.05)',
+                borderColor: 'rgba(11, 99, 206, 0.2)',
+              }}
             />
           </div>
         </div>
@@ -127,7 +134,11 @@ const KnowledgeBasePage: React.FC = () => {
             {/* Search removed */}
 
             {/* Categories list */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-white/10 p-4 sticky top-6">
+            <div className="rounded-lg shadow-sm border p-4 sticky top-6"
+              style={{
+                background: 'rgba(11, 99, 206, 0.05)',
+                borderColor: 'rgba(11, 99, 206, 0.2)'
+              }}>
               <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-3">{t('knowledgeUi.categoriesTitle')}</h3>
               <div className="flex flex-col space-y-2">
                 {Object.entries(categories).map(([key, label]: [string, any], index: number) => (
@@ -136,9 +147,14 @@ const KnowledgeBasePage: React.FC = () => {
                       onClick={() => { setShowStarred(false); setFilters({ ...filters, category: key, page: 1 }); }}
                       className={`text-left px-3 py-2 rounded-md transition-colors ${
                         filters.category === key && !showStarred
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600'
+                          ? 'text-white'
+                          : 'text-gray-700 dark:text-gray-200'
                       }`}
+                      style={filters.category === key && !showStarred ? {
+                        background: 'linear-gradient(90deg, #0B63CE, #3399FF)'
+                      } : {
+                        background: 'rgba(11, 99, 206, 0.05)'
+                      }}
                     >
                       {String(label)}
                     </button>
@@ -147,9 +163,14 @@ const KnowledgeBasePage: React.FC = () => {
                         onClick={() => { setShowStarred(true); setFilters({ ...filters, page: 1, category: 'all' }); }}
                         className={`text-left px-3 py-2 rounded-md transition-colors ${
                           showStarred
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600'
+                            ? 'text-white'
+                            : 'text-gray-700 dark:text-gray-200'
                         }`}
+                        style={showStarred ? {
+                          background: 'linear-gradient(90deg, #0B63CE, #3399FF)'
+                        } : {
+                          background: 'rgba(11, 99, 206, 0.05)'
+                        }}
                       >
                         {t('knowledgeUi.myStarred')}
                       </button>
