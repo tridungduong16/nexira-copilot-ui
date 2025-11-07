@@ -403,13 +403,37 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   return (
     <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#0F172A]' : 'bg-gray-50'}`}>
       {/* Header */}
-      <AgentHeader
-        icon={<Settings />}
-        title="Prompt Optimizer Agent"
-        subtitle={t('promptOptimizerPage.labSubtitle')}
-        onBack={onBack}
-        tags={[{ icon: <CheckCircle />, label: t('promptOptimizerPage.variants', { count: 2 }), properties: 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium border border-green-200' }, { icon: <Settings />, label: t('promptOptimizerPage.labReady'), properties: 'bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-medium border border-cyan-200' }]}
-      />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <button
+          onClick={onBack}
+          className={`mb-6 flex items-center gap-2 text-sm ${resolvedTheme === 'dark' ? 'text-gray-400 hover:text-gray-200' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span>Back to Marketplace</span>
+        </button>
+
+        <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="p-1 rounded-xl bg-white">
+              <img
+                src="/assets/icon3.png"
+                alt="Prompt Optimizer Agent"
+                className="w-16 h-16 object-cover rounded-lg"
+              />
+            </div>
+            <div>
+              <h1 className={`text-3xl font-bold ${resolvedTheme === 'dark' ? 'text-white' : 'text-[#001F3F]'}`}>
+                Prompt Optimizer Agent
+              </h1>
+              <p className={`text-lg ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                {t('promptOptimizerPage.labSubtitle')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="space-y-6">
