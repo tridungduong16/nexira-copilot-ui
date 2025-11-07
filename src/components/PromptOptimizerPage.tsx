@@ -405,7 +405,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       {/* Header */}
       <AgentHeader
         icon={<Settings />}
-        title={t('promptOptimizerPage.labTitle')}
+        title="Prompt Optimizer Agent"
         subtitle={t('promptOptimizerPage.labSubtitle')}
         onBack={onBack}
         tags={[{ icon: <CheckCircle />, label: t('promptOptimizerPage.variants', { count: 2 }), properties: 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium border border-green-200' }, { icon: <Settings />, label: t('promptOptimizerPage.labReady'), properties: 'bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-medium border border-cyan-200' }]}
@@ -494,14 +494,6 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                   <p className={`text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                     {originalPrompt.length} {t('promptOptimizerPage.characters')}
                   </p>
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className={`text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{t('promptOptimizerPage.specifyFormat')}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className={`text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{t('promptOptimizerPage.provideContext')}</span>
-                  </div>
                 </div>
                 <button 
                   onClick={handleOptimizePrompt}
@@ -593,23 +585,8 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                         />
                       </div>
 
-                      {/* Rating and Actions */}
-                      <div className={`flex items-center justify-between ${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'}`}>
-                        <div className={`flex items-center space-x-1 ${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'}`}>
-                          <span className={`text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mr-2`}>{t('promptOptimizerPage.rating')}</span>
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <button
-                              key={star}
-                              onClick={() => handleRating(variant.id, star)}
-                              className={`h-5 w-5 transition-colors ${
-                                star <= variant.rating ? 'text-yellow-500 fill-current' : 'text-gray-400 hover:text-yellow-500'
-                              }`}
-                            >
-                              <Star className="h-5 w-5" />
-                            </button>
-                          ))}
-                        </div>
-                        
+                      {/* Actions */}
+                      <div className={`flex items-center justify-end ${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'}`}>
                         <div className={`flex items-center space-x-2 ${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'}`}>
                           <button 
                             onClick={() => handleTestPrompt(variant.id, variant.prompt)}
