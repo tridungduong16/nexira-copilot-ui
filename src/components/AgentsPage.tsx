@@ -101,7 +101,7 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredAgents.map((agent) => {
+                {filteredAgents.map((agent, index) => {
                   const Icon = agent.icon;
                   return (
                     <div
@@ -112,7 +112,8 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
                           setTimeout(() => onAgentSelect(agent.id), 150);
                         }
                       }}
-                      className={`rounded-2xl transition-all duration-200 flex flex-col overflow-hidden cursor-pointer group border ${resolvedTheme === 'dark' ? 'bg-[#0B63CE]/5 border-[#0B63CE]/30 hover:border-[#00BFFF]/50 hover:shadow-lg' : 'bg-white border-[#0B63CE]/20 hover:border-[#0B63CE]/40 hover:shadow-lg'}`}
+                      className={`rounded-2xl transition-all duration-300 ease-out-smooth flex flex-col overflow-hidden cursor-pointer group border animate-fade-in-up ${resolvedTheme === 'dark' ? 'bg-[#0B63CE]/5 border-[#0B63CE]/30 hover:border-[#00BFFF]/50 hover:shadow-xl hover:scale-[1.02]' : 'bg-white border-[#0B63CE]/20 hover:border-[#0B63CE]/40 hover:shadow-xl hover:scale-[1.02]'}`}
+                      style={{ animationDelay: `${index * 0.05}s` }}
                     >
                       <div className={`p-6 bg-gradient-to-br ${agent.color} text-white flex justify-between items-start`}>
                         <div>

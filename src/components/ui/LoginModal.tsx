@@ -111,11 +111,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onSelect, hideGu
   } catch {}
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center animate-fade-in">
       {/* overlay */}
-      <div className="absolute inset-0 bg-black/50" onClick={dismissible ? onClose : undefined} />
+      <div className="absolute inset-0 bg-black/50 transition-opacity duration-300" onClick={dismissible ? onClose : undefined} />
       {/* card */}
-      <div className="relative w-full max-w-md mx-4 rounded-2xl glass-white p-6">
+      <div className="relative w-full max-w-md mx-4 rounded-2xl glass-white p-6 animate-modal">
         {dismissible && (
           <button onClick={onClose} className="absolute right-3 top-3 p-2 rounded-full hover:bg-black/5">
             <X className="h-5 w-5 text-gray-700" />
@@ -189,7 +189,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onSelect, hideGu
                     try { window.dispatchEvent(new Event('nexira-login')); } catch {}
                   }
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-black/10 bg-white hover:bg-white/90 transition-colors text-gray-900"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-black/10 bg-white hover:bg-white/90 hover:scale-[1.02] hover:shadow-md transition-all duration-300 ease-out-smooth text-gray-900"
               >
                 {/* Google G icon */}
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -207,7 +207,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onSelect, hideGu
                   setIsEmailExists(false);
                   setIsPasswordMatch(true);
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-black/10 bg-white hover:bg-white/90 transition-colors text-gray-900"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-black/10 bg-white hover:bg-white/90 hover:scale-[1.02] hover:shadow-md transition-all duration-300 ease-out-smooth text-gray-900"
               >
                 <Mail className="h-4 w-4" />
                 <span>Sign in with Email</span>
@@ -226,14 +226,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onSelect, hideGu
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white"
+                className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white"
+                className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               />
               <div className="flex items-center justify-between text-sm">
                 <label className="flex items-center gap-2">
@@ -265,10 +265,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onSelect, hideGu
                   setErrorMessage('');
                   setIsEmailExists(false);
                   setIsPasswordMatch(true);
-                }} className="px-4 py-3 rounded-xl border border-black/10 bg-white flex-1">Back</button>
+                }} className="px-4 py-3 rounded-xl border border-black/10 bg-white flex-1 hover:bg-gray-50 hover:scale-[1.02] transition-all duration-300 ease-out-smooth">Back</button>
                 <button onClick={() => {
                   handleSignin();
-                }} className="px-4 py-3 rounded-xl bg-gray-900 text-white flex-1">Continue</button>
+                }} className="px-4 py-3 rounded-xl bg-gray-900 text-white flex-1 hover:bg-gray-800 hover:scale-[1.02] hover:shadow-lg transition-all duration-300 ease-out-smooth">Continue</button>
               </div>
             </div>
           </>
@@ -284,28 +284,28 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onSelect, hideGu
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Full Name"
-                className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white"
+                className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-                className={`w-full px-4 py-3 rounded-xl border bg-white ${isEmailExists ? 'border-red-500' : 'border-black/10'}`}
+                className={`w-full px-4 py-3 rounded-xl border bg-white transition-all duration-200 focus:ring-2 ${isEmailExists ? 'border-red-500 focus:ring-red-500' : 'border-black/10 focus:ring-blue-500'}`}
               />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className={`w-full px-4 py-3 rounded-xl border bg-white ${isPasswordMatch ? 'border-black/10' : 'border-red-500'}`}
+                className={`w-full px-4 py-3 rounded-xl border bg-white transition-all duration-200 focus:ring-2 ${isPasswordMatch ? 'border-black/10 focus:ring-blue-500' : 'border-red-500 focus:ring-red-500'}`}
               />
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password"
-                className={`w-full px-4 py-3 rounded-xl border bg-white ${isPasswordMatch ? 'border-black/10' : 'border-red-500'}`}
+                className={`w-full px-4 py-3 rounded-xl border bg-white transition-all duration-200 focus:ring-2 ${isPasswordMatch ? 'border-black/10 focus:ring-blue-500' : 'border-red-500 focus:ring-red-500'}`}
               />
               <div className="flex items-center gap-2 text-sm">
                 <input type="checkbox" className="rounded border-gray-300" />
@@ -337,12 +337,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onSelect, hideGu
                   setErrorMessage('');
                   setIsEmailExists(false);
                   setIsPasswordMatch(true);
-                }} className="px-4 py-3 rounded-xl border border-black/10 bg-white flex-1">Back</button>
+                }} className="px-4 py-3 rounded-xl border border-black/10 bg-white flex-1 hover:bg-gray-50 hover:scale-[1.02] transition-all duration-300 ease-out-smooth">Back</button>
                 <button onClick={() => {
                   handleSignup();
                   try { window.dispatchEvent(new StorageEvent('storage')); } catch {}
                   try { window.dispatchEvent(new Event('nexira-login')); } catch {}
-                }} className="px-4 py-3 rounded-xl bg-gray-900 text-white flex-1">Create Account</button>
+                }} className="px-4 py-3 rounded-xl bg-gray-900 text-white flex-1 hover:bg-gray-800 hover:scale-[1.02] hover:shadow-lg transition-all duration-300 ease-out-smooth">Create Account</button>
               </div>
             </div>
           </>

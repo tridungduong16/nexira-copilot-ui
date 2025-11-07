@@ -16,9 +16,9 @@ const GlassButton: React.FC<GlassButtonProps> = ({ children, onClick, className 
       className={[
         'relative group overflow-hidden',
         'bg-white/20 backdrop-blur-md border border-white/0',
-        'transition-all duration-300',
-        'hover:bg-white/30 hover:border-white/20',
-        'active:scale-95',
+        'transition-all duration-300 ease-out-smooth',
+        'hover:bg-white/30 hover:border-white/20 hover:shadow-lg hover:scale-[1.02]',
+        'active:scale-[0.98]',
         className,
       ].join(' ')}
     >
