@@ -60,7 +60,7 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid grid-cols-12 gap-5">
           {/* Sidebar */}
-          <aside className={`col-span-12 lg:col-span-3 rounded-2xl p-6 ${resolvedTheme === 'dark' ? 'bg-[#0D0F10] text-gray-200' : 'bg-white text-gray-800 border border-gray-200'}`}>
+          <aside className={`col-span-12 lg:col-span-3 rounded-2xl p-6 border ${resolvedTheme === 'dark' ? 'bg-[#0B63CE]/10 border-[#0B63CE]/30 text-gray-200' : 'bg-white text-gray-800 border-[#0B63CE]/20'}`}>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold">{t('header.marketplace')}</h2>
             </div>
@@ -74,9 +74,10 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
                         onClick={() => setFilter(cat.id)}
                         className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
                           resolvedTheme === 'dark'
-                            ? (filter === cat.id ? 'bg-[#131619] text-white' : 'text-gray-300 hover:bg-[#131619]')
-                            : (filter === cat.id ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-100')
+                            ? (filter === cat.id ? 'text-white' : 'text-gray-300 hover:bg-[#0B63CE]/20')
+                            : (filter === cat.id ? 'bg-[#0B63CE]/10 text-[#0B63CE]' : 'text-gray-700 hover:bg-gray-100')
                         }`}
+                        style={filter === cat.id && resolvedTheme === 'dark' ? { background: 'rgba(11, 99, 206, 0.2)' } : undefined}
                       >
                         {cat.name}
                       </button>
@@ -93,7 +94,7 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
           {/* Main Content */}
           <main className="col-span-12 lg:col-span-9 space-y-5">
             {/* Content panel */}
-            <div className={`${resolvedTheme === 'dark' ? 'bg-[#0D0F10]' : 'bg-white border border-gray-200'} rounded-2xl p-6`}>
+            <div className={`rounded-2xl p-6 border ${resolvedTheme === 'dark' ? 'bg-[#0B63CE]/10 border-[#0B63CE]/30' : 'bg-white border-[#0B63CE]/20'}`}>
               <div className="mb-6">
                 <h1 className={`text-2xl md:text-3xl font-bold ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{t('agentsMarketplace')}</h1>
                 <p className={`${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mt-2`}>{t('agentsMarketplaceSubtitle')}</p>
@@ -111,7 +112,7 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
                           setTimeout(() => onAgentSelect(agent.id), 150);
                         }
                       }}
-                      className={`${resolvedTheme === 'dark' ? 'bg-[#131619] border border-[#1e2328] hover:border-[#2a3138]' : 'bg-white border border-gray-200 hover:border-gray-300'} rounded-2xl transition-colors duration-200 flex flex-col overflow-hidden cursor-pointer group`}
+                      className={`rounded-2xl transition-all duration-200 flex flex-col overflow-hidden cursor-pointer group border ${resolvedTheme === 'dark' ? 'bg-[#0B63CE]/5 border-[#0B63CE]/30 hover:border-[#00BFFF]/50 hover:shadow-lg' : 'bg-white border-[#0B63CE]/20 hover:border-[#0B63CE]/40 hover:shadow-lg'}`}
                     >
                       <div className={`p-6 bg-gradient-to-br ${agent.color} text-white flex justify-between items-start`}>
                         <div>
@@ -127,7 +128,7 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
                         <ul className={`space-y-2 text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                           {Array.isArray(agent.features) && agent.features.map((feature, index) => (
                             <li key={index} className="flex items-center">
-                              <Sparkles className="w-4 h-4 mr-2 text-purple-400 flex-shrink-0" />
+                              <Sparkles className="w-4 h-4 mr-2 text-[#00BFFF] flex-shrink-0" />
                               <span>{feature}</span>
                             </li>
                           ))}
@@ -144,7 +145,10 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
                             {agent.rating} ({t('reviews', { count: Math.floor(agent.rating * 23) })})
                           </div>
                         </div>
-                        <button className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-500 transition-colors duration-200 flex items-center justify-center group-hover:scale-[1.01] transform-gpu">
+                        <button
+                          className="w-full px-6 py-3 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center group-hover:scale-[1.02] transform-gpu hover:shadow-lg"
+                          style={{ background: 'linear-gradient(90deg, #0B63CE, #3399FF)' }}
+                        >
                           <span>{t('launchAgent')}</span>
                           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                         </button>

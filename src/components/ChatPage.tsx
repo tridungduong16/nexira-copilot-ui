@@ -397,7 +397,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ initialPrompt }) => {
 
 
   return (
-    <div className={`${isDark ? 'bg-[#0B0C0F] text-gray-200' : 'bg-white text-gray-900'} fixed inset-0 overflow-hidden`}> 
+    <div className={`${isDark ? 'bg-[#001F3F] text-gray-200' : 'bg-[#E6F0FF] text-gray-900'} fixed inset-0 overflow-hidden`}> 
       <div className="w-full h-full px-0 opacity-0 animate-[fadeIn_400ms_ease-out_forwards]">
         <div className="relative flex items-start h-full">
           {/* Force login modal when not authenticated */}
@@ -451,7 +451,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ initialPrompt }) => {
               <select
                 value={chat.selectedProvider as any}
                 onChange={(e) => chat.setSelectedProvider(e.target.value as any)}
-                className={`appearance-none bg-transparent border rounded-xl px-4 py-2 text-xl font-semibold text-center capitalize ${isDark ? 'text-gray-100 border-white/10 bg-white/5' : 'text-gray-900 border-gray-300 bg-white'}`}
+                className={`appearance-none bg-transparent border rounded-xl px-4 py-2 text-xl font-semibold text-center capitalize ${isDark ? 'text-gray-100 border-[#0B63CE]/30 bg-[#0B63CE]/10' : 'text-[#0B63CE] border-[#0B63CE]/30 bg-white'}`}
               >
                 {availableProviders.map((p) => (
                   <option key={p} value={p} className={`capitalize ${isDark ? 'bg-[#14171B]' : ''}`}>{p}</option>
@@ -462,7 +462,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ initialPrompt }) => {
               <select
                 value={chat.selectedModel || ''}
                 onChange={(e) => chat.setSelectedModel(e.target.value)}
-                className={`appearance-none bg-transparent border rounded-xl px-4 py-2 text-xl font-semibold text-center ${isDark ? 'text-gray-100 border-white/10 bg-white/5' : 'text-gray-900 border-gray-300 bg-white'}`}
+                className={`appearance-none bg-transparent border rounded-xl px-4 py-2 text-xl font-semibold text-center ${isDark ? 'text-gray-100 border-[#0B63CE]/30 bg-[#0B63CE]/10' : 'text-[#0B63CE] border-[#0B63CE]/30 bg-white'}`}
               >
                 {availableModels.map((m) => (
                   <option key={m.name} value={m.name} className={isDark ? 'bg-[#14171B]' : ''}>{m.alias}</option>
@@ -741,9 +741,10 @@ const ChatPage: React.FC<ChatPageProps> = ({ initialPrompt }) => {
                     />
                     <button
                       onClick={send}
-                      className={`px-3 py-2 rounded-xl transition-colors disabled:opacity-50 border ${
-                        isDark ? 'bg-white/10 hover:bg-white/20 border-white/10 text-white' : 'bg-gray-900 hover:bg-gray-800 border-gray-900/0 text-white'
-                      }`}
+                      className="px-3 py-2 rounded-xl transition-colors disabled:opacity-50 border-0 text-white"
+                      style={{
+                        background: !chat.input.trim() || chat.isSending || requireLogin ? 'rgba(11, 99, 206, 0.3)' : 'linear-gradient(90deg, #0B63CE, #3399FF)'
+                      }}
                       disabled={!chat.input.trim() || chat.isSending || requireLogin}
                       aria-label="Send"
                     >

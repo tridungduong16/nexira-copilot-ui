@@ -2,14 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Home theme tokens and helpers */
+/* Nexira Brand Colors */
 :root {
-  --home-bg-from: #0B0C0F;
-  --home-bg-to: #13151A;
-  --home-accent: #8B5CF6; /* violet */
-  --home-accent-2: #06B6D4; /* cyan */
-  --home-surface: rgba(255, 255, 255, 0.05);
-  --home-border: rgba(255, 255, 255, 0.1);
+  --nexira-blue: #0B63CE;
+  --deep-navy: #001F3F;
+  --aqua-accent: #00BFFF;
+  --soft-mist: #E6F0FF;
+  --sky-gradient: linear-gradient(90deg, #0B63CE, #3399FF);
+
+  /* Legacy support */
+  --home-bg-from: #001F3F;
+  --home-bg-to: #001F3F;
+  --home-accent: #0B63CE;
+  --home-accent-2: #3399FF;
+  --home-surface: rgba(11, 99, 206, 0.1);
+  --home-border: rgba(11, 99, 206, 0.2);
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 700;
+  }
 }
 
 /* Trill palette (can be tuned to match the shared design) */

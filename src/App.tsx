@@ -79,18 +79,18 @@ function App() {
       className={
         `min-h-screen ` +
         (currentPage === 'home'
-          ? (resolvedTheme === 'dark' ? 'bg-[#0B0C0F] overflow-hidden' : 'bg-white overflow-hidden')
+          ? (resolvedTheme === 'dark' ? 'bg-[#001F3F] overflow-hidden' : 'bg-[#E6F0FF] overflow-hidden')
           : (currentPage === 'agents')
-            ? (resolvedTheme === 'dark' ? 'bg-[#131619]' : 'bg-gray-50')
+            ? (resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]')
             : (currentPage.endsWith('-analyst'))
-              ? 'bg-gray-50'
+              ? 'bg-[#E6F0FF]'
               : currentPage === 'settings'
-                ? (resolvedTheme === 'dark' ? 'bg-[#0B0C0F]' : 'bg-gray-50')
+                ? (resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]')
                 : (currentPage === 'knowledge' || currentPage === 'help' || currentPage === 'tickets')
-                  ? (resolvedTheme === 'dark' ? 'bg-[#0B0C0F]' : 'bg-gray-50')
+                  ? (resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]')
                   : currentPage === 'chat'
-                    ? 'bg-[#0B0C0F] overflow-hidden'
-                    : 'bg-gray-50')
+                    ? 'bg-[#001F3F] overflow-hidden'
+                    : 'bg-[#E6F0FF]')
       }
     >
       {!isAgentDetailPage && currentPage !== 'chat' && (

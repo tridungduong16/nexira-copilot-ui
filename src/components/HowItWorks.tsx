@@ -27,11 +27,11 @@ const steps = [
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="py-20 bg-[#0B0C0F]">
+    <section className="py-20 bg-[#001F3F]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How It Works</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">Get started with AI assistance in just three simple steps</p>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">Get started with AI assistance in just three simple steps</p>
         </div>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
@@ -40,25 +40,25 @@ const HowItWorks: React.FC = () => {
 						return (
               <div key={step.step} className="text-center relative">
                 <div className="flex justify-center mb-6">
-                  <div className="p-4 rounded-xl bg-white/10 border border-white/10">
-                    <IconComponent className="h-8 w-8 text-white" />
+                  <div className="p-4 rounded-xl border" style={{ background: 'rgba(11, 99, 206, 0.15)', borderColor: 'rgba(0, 191, 255, 0.3)' }}>
+                    <IconComponent className="h-8 w-8 text-[#00BFFF]" />
                   </div>
                 </div>
 
 								<div className="mb-4">
-									<span className="text-sm font-medium text-gray-400">
+									<span className="text-sm font-medium text-[#00BFFF]">
 										Step {step.step}
 									</span>
-									<h3 className="text-xl font-semibold text-white mt-1">
+									<h3 className="text-xl font-bold text-white mt-1">
 										{step.title}
 									</h3>
 								</div>
 
-                <p className="text-gray-400">{step.description}</p>
+                <p className="text-gray-300">{step.description}</p>
 
                 {index < steps.length - 1 && (
                   <div className="hidden md:block absolute top-12 left-full transform -translate-x-1/2 translate-x-6">
-                    <ArrowRight className="h-6 w-6 text-gray-600" />
+                    <ArrowRight className="h-6 w-6 text-[#0B63CE]" />
                   </div>
                 )}
 							</div>
@@ -67,7 +67,10 @@ const HowItWorks: React.FC = () => {
 				</div>
 
         <div className="mt-16 text-center">
-          <button className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-200">
+          <button
+            className="px-8 py-4 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-xl hover:scale-105"
+            style={{ background: 'linear-gradient(90deg, #0B63CE, #3399FF)' }}
+          >
             Get Started Now
           </button>
         </div>

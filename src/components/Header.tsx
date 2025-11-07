@@ -171,7 +171,7 @@ const Header: React.FC<HeaderProps> = ({
                 className="w-full h-full object-contain"
               />
             </div>
-            <h1 className={`text-xl font-bold leading-none ${currentPage === 'home' ? 'text-gray-900' : 'text-gray-900'}`}>{t('header.nexiraAI')}</h1>
+            <h1 className={`text-xl font-bold leading-none ${currentPage === 'home' ? 'text-white' : 'text-[#0B63CE]'}`}>{t('header.nexiraAI')}</h1>
           </div>
 
           {/* Desktop Navigation */}
@@ -189,10 +189,10 @@ const Header: React.FC<HeaderProps> = ({
                 return (
                   <GlassButton
                     key={item.k}
-                    className={`px-4 py-2 rounded-full ${navToneClass} ${isActive ? '' : 'opacity-90'}`}
+                    className={`px-4 py-2 rounded-full ${navToneClass} ${isActive ? 'opacity-100' : 'opacity-80'}`}
                     onClick={() => handleNavClick(item.k)}
                   >
-                    <span className="text-gray-800 font-medium">{item.label}</span>
+                    <span className={`font-medium ${currentPage === 'home' ? 'text-white' : isActive ? 'text-[#0B63CE]' : 'text-gray-700'}`}>{item.label}</span>
                   </GlassButton>
                 );
               }
@@ -200,7 +200,7 @@ const Header: React.FC<HeaderProps> = ({
                 <button
                   key={item.k}
                   onClick={() => handleNavClick(item.k)}
-                  className={`font-medium transition-colors ${isActive ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
+                  className={`font-medium transition-colors ${isActive ? 'text-[#0B63CE]' : 'text-gray-700 hover:text-[#00BFFF]'}`}
                 >
                   {item.label}
                 </button>
@@ -214,7 +214,7 @@ const Header: React.FC<HeaderProps> = ({
             {userName ? (
               <button
                 onClick={() => navigate('/settings')}
-                className={`${isGlass ? 'btn-glass' : 'bg-white'} pl-2 pr-3 py-1.5 rounded-full text-gray-800 flex items-center gap-2`}
+                className={`${isGlass ? 'btn-glass' : 'bg-white'} pl-2 pr-3 py-1.5 rounded-full flex items-center gap-2 ${currentPage === 'home' ? 'text-white' : 'text-[#0B63CE]'}`}
                 title="Open settings"
               >
                 <img src={userAvatar || '/figma/icon-user-circle.svg'} alt="avatar" className="h-6 w-6 rounded-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/figma/icon-user-circle.svg'; }} />
@@ -223,7 +223,7 @@ const Header: React.FC<HeaderProps> = ({
             ) : (
               <button
                 onClick={() => setShowLogin(true)}
-                className={`${isGlass ? 'btn-glass' : 'bg-white'} px-3 py-2 rounded-full text-gray-800 flex items-center gap-2`}
+                className={`${isGlass ? 'btn-glass' : 'bg-white'} px-3 py-2 rounded-full flex items-center gap-2 ${currentPage === 'home' ? 'text-white' : 'text-[#0B63CE]'}`}
                 title="Sign in"
               >
                 <LogIn className="h-4 w-4" />
