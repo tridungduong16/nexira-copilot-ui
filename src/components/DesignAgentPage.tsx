@@ -184,67 +184,6 @@ const DesignAgentPage: React.FC<DesignAgentPageProps> = ({ onBack }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column - Input */}
           <div className="space-y-6">
-            {/* Feature Description Card */}
-            <div className={`p-6 rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
-              <h3 className={`text-xl font-bold mb-4 flex items-center gap-2 ${isDark ? 'text-white' : 'text-[#001F3F]'}`}>
-                {mode === 'generate' ? '🪄 Image Generation' : '🖌️ Image Editing'}
-              </h3>
-              <p className={`text-sm mb-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                {mode === 'generate'
-                  ? 'Just describe what you want to see — and the Design Agent handles the rest.'
-                  : 'Upload an image and let the Design Agent reimagine it — from subtle retouching to full visual transformation.'}
-              </p>
-
-              {mode === 'generate' ? (
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-start gap-3">
-                    <span className={`text-lg ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>📝</span>
-                    <div>
-                      <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Paste Your Prompt</div>
-                      <div className={isDark ? 'text-gray-400' : 'text-gray-600'}>Describe your vision</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className={`text-lg ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>🎨</span>
-                    <div>
-                      <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Choose Your Model</div>
-                      <div className={isDark ? 'text-gray-400' : 'text-gray-600'}>Pick an AI engine that fits your style</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className={`text-lg ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>⚙️</span>
-                    <div>
-                      <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Click "Optimise & Generate"</div>
-                      <div className={isDark ? 'text-gray-400' : 'text-gray-600'}>Instantly creates your image</div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-start gap-3">
-                    <span className={`text-lg ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>📤</span>
-                    <div>
-                      <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Upload Your Image</div>
-                      <div className={isDark ? 'text-gray-400' : 'text-gray-600'}>Choose any image to improve</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className={`text-lg ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>🧠</span>
-                    <div>
-                      <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Add an Edit Prompt</div>
-                      <div className={isDark ? 'text-gray-400' : 'text-gray-600'}>Describe what you'd like to change</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className={`text-lg ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>⚙️</span>
-                    <div>
-                      <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Click "Optimise & Edit"</div>
-                      <div className={isDark ? 'text-gray-400' : 'text-gray-600'}>Applies the edit seamlessly</div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
 
             {/* Image Upload (for edit mode) */}
             {mode === 'edit' && (
@@ -296,36 +235,23 @@ const DesignAgentPage: React.FC<DesignAgentPageProps> = ({ onBack }) => {
             {mode === 'generate' && (
               <div className={`p-6 rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
                 <label className={`block text-sm font-semibold mb-3 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                  Choose Your AI Model
+                  AI Model
                 </label>
-                <div className="space-y-3">
+                <select
+                  value={selectedModel}
+                  onChange={(e) => setSelectedModel(e.target.value as AIModel)}
+                  className={`w-full rounded-lg px-4 py-3 border focus:outline-none focus:ring-2 focus:ring-[#0B63CE]/50 transition-all ${
+                    isDark
+                      ? 'bg-white/5 border-white/10 text-gray-200'
+                      : 'bg-white border-gray-200 text-gray-900'
+                  }`}
+                >
                   {models.map((model) => (
-                    <button
-                      key={model.id}
-                      onClick={() => setSelectedModel(model.id)}
-                      className={`w-full p-4 rounded-xl text-left transition-all ${
-                        selectedModel === model.id
-                          ? 'bg-gradient-to-r from-[#0B63CE] to-[#3399FF] text-white shadow-lg'
-                          : isDark
-                          ? 'bg-white/5 hover:bg-white/10 text-gray-300'
-                          : 'bg-gray-50 hover:bg-gray-100 text-gray-700'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl">{model.icon}</span>
-                        <div className="flex-1">
-                          <div className="font-semibold">{model.name}</div>
-                          <div className={`text-xs ${selectedModel === model.id ? 'opacity-90' : 'opacity-70'}`}>
-                            {model.description}
-                          </div>
-                        </div>
-                        {selectedModel === model.id && (
-                          <div className="w-2 h-2 rounded-full bg-white"></div>
-                        )}
-                      </div>
-                    </button>
+                    <option key={model.id} value={model.id}>
+                      {model.icon} {model.name} — {model.description}
+                    </option>
                   ))}
-                </div>
+                </select>
               </div>
             )}
 
@@ -396,39 +322,6 @@ const DesignAgentPage: React.FC<DesignAgentPageProps> = ({ onBack }) => {
 
           {/* Right Column - Output */}
           <div className="space-y-6">
-            {/* Highlights */}
-            <div className={`p-6 rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
-              <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-[#001F3F]'}`}>
-                Highlights
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <div className={`mt-1 ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>✨</div>
-                  <div className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                    Smart Prompt Optimization for better lighting and framing
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className={`mt-1 ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>🧩</div>
-                  <div className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                    {mode === 'generate' ? 'Multi-Model Switching without losing your prompt' : 'Consistent tone and lighting preservation'}
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className={`mt-1 ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>🖼️</div>
-                  <div className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                    {mode === 'generate' ? 'Live Preview Gallery with side-by-side comparison' : 'Real-time before/after preview'}
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className={`mt-1 ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>💾</div>
-                  <div className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                    Save & Share your creations instantly
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* Results */}
             {optimizedPrompt && (
               <div className={`p-6 rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
