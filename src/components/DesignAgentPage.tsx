@@ -59,7 +59,6 @@ const DesignAgentPage: React.FC<DesignAgentPageProps> = ({ onBack }) => {
     'A futuristic city under golden light',
     'Abstract geometric patterns in vibrant colors',
     'Minimalist product photography on white background',
-    'Cyberpunk street scene at night with neon lights',
   ];
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
