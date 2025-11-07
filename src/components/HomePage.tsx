@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Users, MessageSquare, Settings as SettingsIcon, Globe, Palette, Code, FileText, Briefcase, TrendingUp } from 'lucide-react';
+import { Sparkles, Users, MessageSquare, Settings as SettingsIcon, Globe } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
+import { agentData } from '../data/agentData';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const HomePage: React.FC = () => {
 
   const highlights = [
     {
-      icon: Palette,
+      icon: Users,
       title: 'Multi-disciplinary AI agents',
       description: 'Access specialized agents across design, content, HR, and development',
     },
@@ -37,13 +38,10 @@ const HomePage: React.FC = () => {
     },
   ];
 
-  const agents = [
-    { icon: Palette, name: 'Design Agent', color: 'from-pink-500 to-rose-500' },
-    { icon: Code, name: 'Dev Agent', color: 'from-blue-500 to-cyan-500' },
-    { icon: FileText, name: 'Content Agent', color: 'from-green-500 to-emerald-500' },
-    { icon: Briefcase, name: 'HR Agent', color: 'from-purple-500 to-violet-500' },
-    { icon: TrendingUp, name: 'Strategy Agent', color: 'from-orange-500 to-amber-500' },
-  ];
+  const featuredAgents = agentData.filter(agent => agent.popular).slice(0, 5).map(agent => ({
+    ...agent,
+    name: t(`agentsPage.${agent.id}.name`)
+  }));
 
   return (
     <div className={`min-h-screen ${isDark ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}>
@@ -129,8 +127,7 @@ const HomePage: React.FC = () => {
 
           {/* Agent Icons */}
           <div className="flex flex-wrap justify-center gap-6 mb-20">
-            {agents.map((agent, index) => {
-              const Icon = agent.icon;
+            {featuredAgents.map((agent, index) => {
               return (
                 <div
                   key={index}
@@ -141,8 +138,12 @@ const HomePage: React.FC = () => {
                   }}
                   onClick={() => navigate('/marketplace')}
                 >
-                  <div className={`p-4 rounded-xl bg-gradient-to-br ${agent.color}`}>
-                    <Icon className="w-8 h-8 text-white" />
+                  <div className={`p-3 rounded-xl bg-gradient-to-br ${agent.color}`}>
+                    <img
+                      src={agent.avatar}
+                      alt={agent.name}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
                   </div>
                   <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-[#001F3F]'}`}>
                     {agent.name}

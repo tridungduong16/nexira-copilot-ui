@@ -14,6 +14,7 @@ export const agentData = [
   {
     id: 'data',
     icon: BarChart3,
+    avatar: '/assets/icon1.png',
     color: 'from-blue-500 to-blue-600',
     categoryKey: 'categories.dataTeam',
     rating: 4.7,
@@ -22,6 +23,7 @@ export const agentData = [
   {
     id: 'telesales',
     icon: Phone,
+    avatar: '/assets/icon2.png',
     color: 'from-green-500 to-green-600',
     categoryKey: 'categories.telesales',
     rating: 4.6,
@@ -30,6 +32,7 @@ export const agentData = [
   {
     id: 'qa',
     icon: CheckCircle,
+    avatar: '/assets/icon3.png',
     color: 'from-teal-500 to-teal-600',
     categoryKey: 'categories.qaQc',
     rating: 4.8,
@@ -38,6 +41,7 @@ export const agentData = [
   {
     id: 'hr',
     icon: Users,
+    avatar: '/assets/icon4.png',
     color: 'from-indigo-500 to-indigo-600',
     categoryKey: 'categories.humanResources',
     rating: 4.8,
@@ -46,6 +50,7 @@ export const agentData = [
   {
     id: 'marketing',
     icon: Megaphone,
+    avatar: '/assets/icon5.png',
     color: 'from-pink-500 to-pink-600',
     categoryKey: 'categories.marketing',
     rating: 4.9,
@@ -54,6 +59,7 @@ export const agentData = [
   {
     id: 'gamedev',
     icon: Gamepad2,
+    avatar: '/assets/icon6.png',
     color: 'from-purple-500 to-purple-600',
     categoryKey: 'categories.gameDevelopment',
     rating: 4.9,
@@ -62,6 +68,7 @@ export const agentData = [
   {
     id: 'design',
     icon: Palette,
+    avatar: '/assets/icon1.png',
     color: 'from-red-500 to-red-600',
     categoryKey: 'categories.design',
     rating: 4.7,
@@ -70,6 +77,7 @@ export const agentData = [
   {
     id: 'training',
     icon: GraduationCap,
+    avatar: '/assets/icon2.png',
     color: 'from-yellow-500 to-yellow-600',
     categoryKey: 'categories.training',
     rating: 4.5,
@@ -78,8 +86,9 @@ export const agentData = [
   {
     id: 'prompt-optimizer',
     icon: Settings,
+    avatar: '/assets/icon3.png',
     color: 'from-cyan-500 to-cyan-600',
-    categoryKey: 'categories.promptOptimizer', // Add this to translations
+    categoryKey: 'categories.promptOptimizer',
     rating: 4.9,
     popular: true,
   },

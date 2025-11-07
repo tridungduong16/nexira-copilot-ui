@@ -119,8 +119,12 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
                           <h3 className="text-xl font-semibold">{agent.name}</h3>
                           <p className="text-xs opacity-90">{agent.category}</p>
                         </div>
-                        <div className="p-2 bg-white/20 rounded-lg">
-                          <Icon className="w-5 h-5" />
+                        <div className="p-1 bg-white rounded-xl">
+                          <img
+                            src={agent.avatar}
+                            alt={agent.name}
+                            className="w-12 h-12 object-cover rounded-lg"
+                          />
                         </div>
                       </div>
                       <div className="p-6 flex-grow">
