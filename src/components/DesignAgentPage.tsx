@@ -123,8 +123,12 @@ const DesignAgentPage: React.FC<DesignAgentPageProps> = ({ onBack }) => {
 
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500">
-              <Palette className="w-8 h-8 text-white" />
+            <div className="p-1 rounded-xl bg-white">
+              <img
+                src="/assets/icon1.png"
+                alt="Design Agent"
+                className="w-16 h-16 object-cover rounded-lg"
+              />
             </div>
             <div>
               <h1 className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-[#001F3F]'}`}>
