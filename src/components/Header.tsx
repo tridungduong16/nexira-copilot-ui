@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import LoadingOverlay from './ui/LoadingOverlay';
 import { Menu, X, LogIn } from 'lucide-react';
-import GlassButton from './ui/GlassButton';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import LoginModal from './ui/LoginModal';
@@ -149,15 +148,10 @@ const Header: React.FC<HeaderProps> = ({
     }, 250);
   };
 
-  const isGlass = ['home', 'agents', 'knowledge', 'settings', 'help', 'chat', 'tickets'].includes(currentPage);
-
-  // using GlassButton below instead of navBtnClass
-
   return (
     <>
-    <header className={`bg-transparent sticky top-0 z-50 overflow-hidden`}>
+    <header className={`bg-white/80 backdrop-blur-md border-b border-[#0B63CE]/10 sticky top-0 z-50`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`${currentPage === 'home' ? 'mt-2 md:mt-3 rounded-full glass-ios px-4' : 'mt-2 md:mt-3 rounded-full glass-white glass-white-hover px-4'} }`}>
         <div className="flex justify-between items-center h-16 relative">
           {/* Logo */}
           <div
@@ -175,7 +169,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-3 absolute left-1/2 -translate-x-1/2">
+          <nav className="hidden md:flex space-x-1 absolute left-1/2 -translate-x-1/2">
             {([
               {k: 'home', label: t('header.home')},
               {k: 'agents', label: t('header.marketplace')},
@@ -184,23 +178,15 @@ const Header: React.FC<HeaderProps> = ({
               {k: 'help', label: t('header.help')},
             ] as const).map((item) => {
               const isActive = currentPage === item.k || (item.k === 'agents' && currentPage.includes('-analyst'));
-              if (isGlass) {
-                const navToneClass = 'glass-white glass-white-hover';
-                return (
-                  <GlassButton
-                    key={item.k}
-                    className={`px-4 py-2 rounded-full ${navToneClass} ${isActive ? 'opacity-100' : 'opacity-80'}`}
-                    onClick={() => handleNavClick(item.k)}
-                  >
-                    <span className={`font-medium ${isActive ? 'text-[#0B63CE]' : 'text-gray-700'}`}>{item.label}</span>
-                  </GlassButton>
-                );
-              }
               return (
                 <button
                   key={item.k}
                   onClick={() => handleNavClick(item.k)}
-                  className={`font-medium transition-colors ${isActive ? 'text-[#0B63CE]' : 'text-gray-700 hover:text-[#00BFFF]'}`}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'bg-[#0B63CE] text-white'
+                      : 'text-gray-700 hover:bg-[#0B63CE]/10 hover:text-[#0B63CE]'
+                  }`}
                 >
                   {item.label}
                 </button>
@@ -214,7 +200,7 @@ const Header: React.FC<HeaderProps> = ({
             {userName ? (
               <button
                 onClick={() => navigate('/settings')}
-                className={`${isGlass ? 'btn-glass' : 'bg-white'} pl-2 pr-3 py-1.5 rounded-full flex items-center gap-2 text-[#0B63CE]`}
+                className="pl-2 pr-3 py-1.5 rounded-lg bg-[#0B63CE]/10 hover:bg-[#0B63CE]/20 flex items-center gap-2 text-[#0B63CE] transition-colors"
                 title="Open settings"
               >
                 <img src={userAvatar || '/figma/icon-user-circle.svg'} alt="avatar" className="h-6 w-6 rounded-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/figma/icon-user-circle.svg'; }} />
@@ -223,7 +209,7 @@ const Header: React.FC<HeaderProps> = ({
             ) : (
               <button
                 onClick={() => setShowLogin(true)}
-                className={`${isGlass ? 'btn-glass' : 'bg-white'} px-3 py-2 rounded-full flex items-center gap-2 text-[#0B63CE]`}
+                className="px-3 py-2 rounded-lg bg-[#0B63CE]/10 hover:bg-[#0B63CE]/20 flex items-center gap-2 text-[#0B63CE] transition-colors"
                 title="Sign in"
               >
                 <LogIn className="h-4 w-4" />
@@ -234,46 +220,65 @@ const Header: React.FC<HeaderProps> = ({
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition-colors"
+              className="md:hidden p-2 rounded-md text-gray-700 hover:text-[#0B63CE] hover:bg-[#0B63CE]/10 transition-colors"
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
-        </div>
       </div>
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className={`md:hidden ${isGlass ? 'border-transparent bg-transparent backdrop-blur-md' : 'border-t border-gray-200 bg-white'}`}>
+        <div className="md:hidden border-t border-[#0B63CE]/10 bg-white">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <button
               onClick={() => handleNavClick('home')}
-              className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'home' ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
+              className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentPage === 'home'
+                  ? 'bg-[#0B63CE] text-white'
+                  : 'text-gray-700 hover:bg-[#0B63CE]/10 hover:text-[#0B63CE]'
+              }`}
             >
               {t('header.home')}
             </button>
             <button
               onClick={() => handleNavClick('agents')}
-              className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'agents' || currentPage.includes('-analyst') ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
+              className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentPage === 'agents' || currentPage.includes('-analyst')
+                  ? 'bg-[#0B63CE] text-white'
+                  : 'text-gray-700 hover:bg-[#0B63CE]/10 hover:text-[#0B63CE]'
+              }`}
             >
               {t('header.marketplace')}
             </button>
-            <button 
+            <button
               onClick={() => handleNavClick('knowledge')}
-              className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'knowledge' ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
+              className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentPage === 'knowledge'
+                  ? 'bg-[#0B63CE] text-white'
+                  : 'text-gray-700 hover:bg-[#0B63CE]/10 hover:text-[#0B63CE]'
+              }`}
             >
               {t('header.knowledge')}
             </button>
-            <button 
+            <button
               onClick={() => handleNavClick('settings')}
-              className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'settings' ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
+              className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentPage === 'settings'
+                  ? 'bg-[#0B63CE] text-white'
+                  : 'text-gray-700 hover:bg-[#0B63CE]/10 hover:text-[#0B63CE]'
+              }`}
             >
               {t('header.settings')}
             </button>
-            <button 
+            <button
               onClick={() => handleNavClick('help')}
-              className={`block w-full text-left px-4 py-2 rounded-full font-medium ${currentPage === 'help' ? (isGlass ? 'btn-glass text-gray-800' : 'text-blue-600 bg-blue-50') : (isGlass ? 'chip-glass text-gray-800 hover:opacity-90' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100')}`}
+              className={`block w-full text-left px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentPage === 'help'
+                  ? 'bg-[#0B63CE] text-white'
+                  : 'text-gray-700 hover:bg-[#0B63CE]/10 hover:text-[#0B63CE]'
+              }`}
             >
               {t('header.help')}
             </button>
