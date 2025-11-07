@@ -432,7 +432,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         </div>
 
         <div className="space-y-6">
-          <div className={`p-6 rounded-2xl animate-fade-in-up ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
+          <div className={`p-6 rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
             <label className={`block text-sm font-semibold mb-3 ${isDark ? 'text-gray-300' : 'text-gray-700'} flex items-center`}>
               <Brain className="h-5 w-5 mr-2 text-[#0B63CE]" />
               {t('promptOptimizerPage.selectTask')}
@@ -454,7 +454,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             </select>
           </div>
 
-          <div className={`rounded-2xl animate-fade-in-up stagger-1 ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
+          <div className={`rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
             <div className={`p-6 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
               <h2 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'} flex items-center`}>
                 <FileText className="h-5 w-5 mr-2 text-[#0B63CE]" />
@@ -519,7 +519,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           </div>
 
           {streamingText && streamingPhase === 'raw' && (
-            <div className={`rounded-2xl animate-fade-in-up stagger-2 ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
+            <div className={`rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
               <div className={`p-6 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
                 <h2 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'} flex items-center`}>
                   <Loader className="h-5 w-5 mr-2 text-[#0B63CE] animate-spin" />
@@ -537,7 +537,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             </div>
           )}
 
-          <div className={`rounded-2xl animate-fade-in-up stagger-3 ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
+          <div className={`rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
             <div className={`p-6 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
               <h2 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'} flex items-center`}>
                 <BarChart3 className="h-5 w-5 mr-2 text-[#0B63CE]" />
