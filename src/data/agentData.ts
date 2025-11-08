@@ -21,7 +21,7 @@ export const agentData = [
   {
     id: 'general-chat',
     icon: MessageSquare,
-    avatar: '/assets/icon3.png',
+    avatar: '/assets/icon11.png',
     color: 'from-blue-500 to-cyan-600',
     categoryKey: 'categories.generalChat',
     department: 'technology',
