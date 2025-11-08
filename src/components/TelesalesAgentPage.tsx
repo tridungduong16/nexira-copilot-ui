@@ -233,34 +233,53 @@ const TelesalesAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       };
 
   return (
-  <div
-    className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}
-    style={{
-      margin: "0 auto",
-      fontFamily:
-        "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif",
-      padding: 20,
-    }}
-  >
-    <div
-      className="header"
-      style={{
-        textAlign: "center",
-        color: "white",
-        marginBottom: 30,
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "2.5rem",
-          marginBottom: 10,
-          textShadow: "2px 2px 4px rgba(0,0,0,0.2)",
-        }}
-      >
-        🎙️ WebSocket Transcription Tester
-      </h1>
-      <p>Real-time audio transcription with WebSocket</p>
+  <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}>
+    {/* Header */}
+    <div className={`${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'} border-b ${resolvedTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'} sticky top-0 z-40`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between py-4">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={onBack}
+              className={`flex items-center gap-2 ${resolvedTheme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span>Back to Marketplace</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+
+    {/* Agent Header */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-8">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="p-1 rounded-xl bg-white">
+            <img
+              src="/assets/icon2.png"
+              alt="Telesales Agent"
+              className="w-16 h-16 object-cover rounded-lg"
+            />
+          </div>
+          <div>
+            <h1 className={`text-3xl font-bold ${resolvedTheme === 'dark' ? 'text-white' : 'text-[#001F3F]'}`}>
+              Telesales Agent
+            </h1>
+            <p className={`text-lg ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+              Real-time audio transcription with WebSocket
+            </p>
+          </div>
+        </div>
+        <p className={`${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'} max-w-4xl`}>
+          AI-powered telesales assistant with real-time conversation analysis and transcription capabilities.
+        </p>
+      </div>
+    </div>
+
+    <div style={{ margin: "0 auto", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif", padding: 20 }}>
 
     <div
       className="status-bar"
@@ -767,7 +786,7 @@ const TelesalesAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       `}
     </style>
   </div>
-  
+  </div>
   )
 }
 

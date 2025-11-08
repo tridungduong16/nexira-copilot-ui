@@ -276,8 +276,10 @@ const MarketingAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
       <AgentHeader
         icon={<Megaphone />}
+        avatar="/assets/icon5.png"
         title={t('marketingAgentPage.title')}
         subtitle={t('marketingAgentPage.subtitle')}
+        description={t('marketingAgentPage.description') || 'Create compelling marketing content, campaigns, and strategies with AI-powered marketing tools.'}
         tags={[{ icon: <CheckCircle />, label: t('marketingAgentPage.aiReady'), properties: 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium border border-green-200' }, { icon: <Megaphone />, label: t('marketingAgentPage.marketingMode'), properties: 'bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium border border-pink-200' }]}
         onBack={onBack}
       />

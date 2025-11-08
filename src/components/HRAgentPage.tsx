@@ -320,8 +320,10 @@ const HRAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       {/* Header */}
       <AgentHeader
         icon={<Users />}
+        avatar="/assets/icon4.png"
         title={t('hrAgentPage.title')}
         subtitle={t('hrAgentPage.subtitle')}
+        description={t('hrAgentPage.description') || 'Streamline recruitment, onboarding, and employee management with AI-powered HR solutions.'}
         tags={[{icon: <CheckCircle />, label: t('hrAgentPage.aiReady'), properties: 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium border border-green-200' }, { icon: <Award />, label: t('hrAgentPage.hrMode'), properties: 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium border border-blue-200' }]}
         onBack={onBack}
       />

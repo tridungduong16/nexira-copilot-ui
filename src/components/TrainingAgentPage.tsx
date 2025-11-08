@@ -757,13 +757,15 @@ const TrainingAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     </div>
   );
   return (
-    <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#0B172A]' : 'bg-gray-50'}`}>
+    <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}>
       {/* Header */}
 
       <AgentHeader
         icon={<GraduationCap />}
+        avatar="/assets/icon2.png"
         title={t('trainingAgentPage.title')}
         subtitle={t('trainingAgentPage.description')}
+        description={t('trainingAgentPage.fullDescription') || 'Create engaging training materials, courses, and assessments with AI-powered learning tools.'}
         tags={[{ icon: <CheckCircle />, label: t('trainingAgentPage.aiReady'), properties: 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium border border-green-200' }, { icon: <GraduationCap />, label: t('trainingAgentPage.ldMode'), properties: 'bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium border border-indigo-200' }]}
         onBack={onBack}
       />

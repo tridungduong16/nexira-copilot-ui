@@ -548,8 +548,10 @@ const DataAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       {/* Header */}
       <AgentHeader
         icon={<Database />}
+        avatar="/assets/icon1.png"
         title={t('dataAgent.title')}
         subtitle={t('dataAgent.subtitle')}
+        description={t('dataAgent.description') || 'Transform raw data into actionable insights with AI-powered analytics and reporting tools.'}
         tags={[{ icon: <CheckCircle />, label: t('dataAgent.aiReady'), properties: 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium border border-green-200' }, { icon: <Database />, label: t('dataAgent.dataMode'), properties: 'bg-violet-100 text-violet-800 px-3 py-1 rounded-full text-sm font-medium border border-violet-200' }]}
         onBack={onBack}
       />

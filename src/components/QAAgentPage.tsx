@@ -1483,19 +1483,24 @@ const QAAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   };
 
   return (
-<div className={`flex min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#0F172A]' : 'bg-gray-50'}`}>
+<div className={`flex min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}>
       {/* Left Sidebar */}
       <div className={`w-1/4 max-w-xs ${resolvedTheme === 'dark' ? 'bg-[#1E293B] border-gray-700' : 'bg-white border-gray-200'} border-r p-6 flex flex-col space-y-6`}>
         <div className="flex items-center space-x-3">
           <button onClick={onBack} className={`p-2 ${resolvedTheme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} rounded-full`}>
             <ArrowLeft className={`h-5 w-5 ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
           </button>
-          <h1 className={`text-xl font-bold ${resolvedTheme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>{t('qaAgentPage.title')}</h1>
+          <div className="p-1 rounded-xl bg-white">
+            <img src="/assets/icon3.png" alt="QA Agent" className="w-10 h-10 object-cover rounded-lg" />
+          </div>
         </div>
-        
-        <p className={`text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-          {t('qaAgentPage.description')}
-        </p>
+
+        <div>
+          <h1 className={`text-xl font-bold ${resolvedTheme === 'dark' ? 'text-gray-100' : 'text-gray-900'} mb-2`}>{t('qaAgentPage.title')}</h1>
+          <p className={`text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+            {t('qaAgentPage.description')}
+          </p>
+        </div>
 
         <div>
           <h2 className={`text-sm font-semibold ${resolvedTheme === 'dark' ? 'text-gray-500' : 'text-gray-500'} uppercase tracking-wider mb-3`}>{t('qaAgentPage.toolsTitle')}</h2>
