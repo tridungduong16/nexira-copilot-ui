@@ -69,28 +69,29 @@ const ChatTopBar: React.FC<ChatTopBarProps> = ({ provider, onChangeProvider, mod
             {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
         )}
-        <div className="relative">
-          <select
-            value={provider}
-            onChange={(e) => onChangeProvider(e.target.value as ProviderKey)}
-            className={`appearance-none bg-transparent border-0 pl-0 pr-7 py-0 focus:outline-none mr-1 text-lg md:text-xl font-semibold ${
-              isDark ? 'text-gray-100' : 'text-gray-900'
-            }`}
-          >
-            {availableProviders.map((p) => (
-              <option key={p} value={p} className={isDark ? 'bg-[#14171B]' : ''}>{p}</option>
-            ))}
-          </select>
-          <ChevronDown className={`pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-5 h-5 ${isDark ? 'text-gray-400' : 'text-gray-500'}`} />
-        </div>
-        <span className={isDark ? 'text-gray-400' : 'text-gray-500'}>·</span>
-        <div className="relative ml-1">
-          <select
-            value={model}
-            onChange={(e) => onChangeModel(e.target.value)}
-            className={`appearance-none bg-transparent border-0 pl-0 pr-7 py-0 focus:outline-none text-lg md:text-xl font-semibold ${
-              isDark ? 'text-gray-100' : 'text-gray-900'
-            }`}
+        <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-gray-200'}`}>
+          <div className="relative">
+            <select
+              value={provider}
+              onChange={(e) => onChangeProvider(e.target.value as ProviderKey)}
+              className={`appearance-none bg-transparent border-0 pl-0 pr-7 py-0 focus:outline-none text-base font-semibold cursor-pointer ${
+                isDark ? 'text-gray-100' : 'text-gray-900'
+              }`}
+            >
+              {availableProviders.map((p) => (
+                <option key={p} value={p} className={isDark ? 'bg-[#14171B]' : ''}>{p}</option>
+              ))}
+            </select>
+            <ChevronDown className={`pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`} />
+          </div>
+          <span className={isDark ? 'text-gray-600' : 'text-gray-300'}>|</span>
+          <div className="relative">
+            <select
+              value={model}
+              onChange={(e) => onChangeModel(e.target.value)}
+              className={`appearance-none bg-transparent border-0 pl-0 pr-7 py-0 focus:outline-none text-base font-semibold cursor-pointer ${
+                isDark ? 'text-gray-100' : 'text-gray-900'
+              }`}
           >
             {availableModels.map((m) => {
               const isObject = typeof m === 'object' && m !== null;
@@ -103,7 +104,8 @@ const ChatTopBar: React.FC<ChatTopBarProps> = ({ provider, onChangeProvider, mod
               );
             })}
           </select>
-          <ChevronDown className={`pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-5 h-5 ${isDark ? 'text-gray-400' : 'text-gray-500'}`} />
+          <ChevronDown className={`pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`} />
+        </div>
         </div>
       </div>
       )}

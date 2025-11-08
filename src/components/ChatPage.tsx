@@ -595,6 +595,79 @@ const ChatPage: React.FC<ChatPageProps> = ({ initialPrompt }) => {
               </div>
             )}
 
+            {/* ChatGPT-style empty state */}
+            {chat.messages.length === 0 && !chat.isSending && (
+              <div className="flex flex-col items-center justify-center h-full space-y-8 pt-20">
+                <div className="text-center space-y-4">
+                  <div className={`text-5xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    Nexira AI
+                  </div>
+                  <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {t('chat.startMessage') || 'How can I help you today?'}
+                  </p>
+                </div>
+
+                {/* Model Selection Card */}
+                <div className={`w-full max-w-2xl rounded-2xl border p-6 ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-gray-200'}`}>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className={`text-sm font-semibold ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {t('chat.selectProvider') || 'AI Provider'}
+                      </label>
+                      <select
+                        value={chat.selectedProvider}
+                        onChange={(e) => chat.setSelectedProvider(e.target.value)}
+                        className={`w-full rounded-lg px-4 py-3 border focus:outline-none focus:ring-2 focus:ring-[#0B63CE]/50 transition-all text-base ${isDark ? 'bg-white/5 border-white/10 text-gray-200' : 'bg-white border-gray-300 text-gray-900'}`}
+                      >
+                        {availableProviders.map((provider) => (
+                          <option key={provider} value={provider}>
+                            {provider}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className={`text-sm font-semibold ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {t('chat.selectModel') || 'Model'}
+                      </label>
+                      <select
+                        value={chat.selectedModel}
+                        onChange={(e) => chat.setSelectedModel(e.target.value)}
+                        className={`w-full rounded-lg px-4 py-3 border focus:outline-none focus:ring-2 focus:ring-[#0B63CE]/50 transition-all text-base ${isDark ? 'bg-white/5 border-white/10 text-gray-200' : 'bg-white border-gray-300 text-gray-900'}`}
+                      >
+                        {availableModels.map((model) => (
+                          <option key={model} value={model}>
+                            {model}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick starter suggestions */}
+                <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {[
+                    { title: t('chat.suggestion1') || 'Help me write something', icon: '✍️' },
+                    { title: t('chat.suggestion2') || 'Explain a concept', icon: '💡' },
+                    { title: t('chat.suggestion3') || 'Code assistance', icon: '💻' },
+                    { title: t('chat.suggestion4') || 'Creative ideas', icon: '🎨' },
+                  ].map((suggestion, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => chat.setInput(suggestion.title)}
+                      className={`p-4 rounded-xl border text-left transition-all hover:scale-[1.02] ${isDark ? 'bg-white/5 border-white/10 hover:bg-white/10 text-gray-200' : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-md text-gray-900'}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{suggestion.icon}</span>
+                        <span className="text-sm font-medium">{suggestion.title}</span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {chat.messages.map((m) => (
               <div key={m.id} className="flex w-full">
                 <div className={`w-full flex items-start ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
