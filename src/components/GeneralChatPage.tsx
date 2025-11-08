@@ -181,13 +181,13 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   ];
 
   return (
-    <div className={`flex h-screen ${isDark ? 'bg-[#0A0A0A]' : 'bg-gray-50'}`}>
+    <div className={`flex h-screen ${isDark ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}>
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-64' : 'w-0'} transition-all duration-300 ${isDark ? 'bg-[#171717] border-r border-gray-800' : 'bg-white border-r border-gray-200'} flex flex-col overflow-hidden`}>
-        <div className="p-4 border-b border-gray-800">
+      <div className={`${sidebarOpen ? 'w-64' : 'w-0'} transition-all duration-300 ${isDark ? 'bg-[#001a33] border-r border-[#0B63CE]/30' : 'bg-white border-r border-gray-200'} flex flex-col overflow-hidden`}>
+        <div className={`p-4 border-b ${isDark ? 'border-[#0B63CE]/30' : 'border-gray-200'}`}>
           <button
             onClick={createNewConversation}
-            className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${isDark ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
+            className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${isDark ? 'bg-[#0B63CE]/20 hover:bg-[#0B63CE]/30 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
           >
             <Plus className="w-5 h-5" />
             New Chat
@@ -201,8 +201,8 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
               onClick={() => setActiveConversationId(conv.id)}
               className={`group relative p-3 rounded-lg mb-2 cursor-pointer transition-all ${
                 activeConversationId === conv.id
-                  ? isDark ? 'bg-white/10' : 'bg-blue-50'
-                  : isDark ? 'hover:bg-white/5' : 'hover:bg-gray-100'
+                  ? isDark ? 'bg-[#0B63CE]/20' : 'bg-blue-50'
+                  : isDark ? 'hover:bg-[#0B63CE]/10' : 'hover:bg-gray-100'
               }`}
             >
               <div className={`text-sm font-medium truncate ${isDark ? 'text-gray-200' : 'text-gray-900'}`}>
@@ -237,24 +237,28 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className={`flex items-center justify-between px-6 py-4 border-b ${isDark ? 'border-gray-800 bg-[#0A0A0A]' : 'border-gray-200 bg-white'}`}>
+        <div className={`flex items-center justify-between px-6 py-4 border-b ${isDark ? 'border-[#0B63CE]/30 bg-[#001a33]' : 'border-gray-200 bg-white'}`}>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className={`p-2 rounded-lg ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+              className={`p-2 rounded-lg ${isDark ? 'hover:bg-[#0B63CE]/20' : 'hover:bg-gray-100'}`}
             >
               <Menu className={`w-5 h-5 ${isDark ? 'text-gray-400' : 'text-gray-600'}`} />
             </button>
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl">
-                <Bot className="w-6 h-6 text-white" />
+              <div className="p-1 rounded-xl bg-white">
+                <img
+                  src="/assets/icon11.png"
+                  alt="General Chat Agent"
+                  className="w-12 h-12 object-cover rounded-lg"
+                />
               </div>
               <div>
                 <h1 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   General Chat Agent
                 </h1>
                 <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                  Powered by AI
+                  Your AI Assistant
                 </p>
               </div>
             </div>
@@ -265,7 +269,7 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         <div className="flex-1 overflow-y-auto">
           {!activeConversation || activeConversation.messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center p-8">
-              <div className="p-4 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl mb-6">
+              <div className="p-4 bg-gradient-to-br from-[#0B63CE] to-[#3399FF] rounded-2xl mb-6">
                 <Sparkles className="w-12 h-12 text-white" />
               </div>
               <h2 className={`text-3xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -284,9 +288,9 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                         createNewConversation();
                       }
                     }}
-                    className={`p-4 rounded-xl text-left transition-all ${isDark ? 'bg-white/5 hover:bg-white/10 text-gray-300' : 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-200'}`}
+                    className={`p-4 rounded-xl text-left transition-all ${isDark ? 'bg-[#0B63CE]/10 hover:bg-[#0B63CE]/20 text-gray-300 border border-[#0B63CE]/30' : 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-200'}`}
                   >
-                    <MessageSquare className="w-5 h-5 mb-2 text-blue-500" />
+                    <MessageSquare className="w-5 h-5 mb-2 text-[#0B63CE]" />
                     <p className="text-sm">{prompt}</p>
                   </button>
                 ))}
@@ -302,8 +306,8 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                   <div className={`flex gap-4 ${message.role === 'user' ? 'flex-row-reverse' : ''} max-w-full`}>
                     <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                       message.role === 'user'
-                        ? 'bg-blue-500'
-                        : 'bg-gradient-to-br from-blue-500 to-cyan-500'
+                        ? 'bg-[#0B63CE]'
+                        : 'bg-gradient-to-br from-[#0B63CE] to-[#3399FF]'
                     }`}>
                       {message.role === 'user' ? (
                         <User className="w-5 h-5 text-white" />
@@ -335,28 +339,28 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                         <div className="flex items-center gap-2 mt-3">
                           <button
                             onClick={() => copyToClipboard(message.content)}
-                            className={`p-1.5 rounded transition-all ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+                            className={`p-1.5 rounded transition-all ${isDark ? 'hover:bg-[#0B63CE]/20' : 'hover:bg-gray-100'}`}
                             title="Copy"
                           >
-                            <Copy className={`w-4 h-4 ${isDark ? 'text-gray-500' : 'text-gray-600'}`} />
+                            <Copy className={`w-4 h-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`} />
                           </button>
                           <button
-                            className={`p-1.5 rounded transition-all ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+                            className={`p-1.5 rounded transition-all ${isDark ? 'hover:bg-[#0B63CE]/20' : 'hover:bg-gray-100'}`}
                             title="Good response"
                           >
-                            <ThumbsUp className={`w-4 h-4 ${isDark ? 'text-gray-500' : 'text-gray-600'}`} />
+                            <ThumbsUp className={`w-4 h-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`} />
                           </button>
                           <button
-                            className={`p-1.5 rounded transition-all ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+                            className={`p-1.5 rounded transition-all ${isDark ? 'hover:bg-[#0B63CE]/20' : 'hover:bg-gray-100'}`}
                             title="Bad response"
                           >
-                            <ThumbsDown className={`w-4 h-4 ${isDark ? 'text-gray-500' : 'text-gray-600'}`} />
+                            <ThumbsDown className={`w-4 h-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`} />
                           </button>
                           <button
-                            className={`p-1.5 rounded transition-all ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+                            className={`p-1.5 rounded transition-all ${isDark ? 'hover:bg-[#0B63CE]/20' : 'hover:bg-gray-100'}`}
                             title="Regenerate"
                           >
-                            <RotateCcw className={`w-4 h-4 ${isDark ? 'text-gray-500' : 'text-gray-600'}`} />
+                            <RotateCcw className={`w-4 h-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`} />
                           </button>
                         </div>
                       )}
@@ -367,7 +371,7 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
               {isGenerating && (
                 <div className="mb-8">
                   <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#0B63CE] to-[#3399FF] flex items-center justify-center">
                       <Bot className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1">
@@ -375,9 +379,9 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                         Assistant
                       </div>
                       <div className="flex gap-2">
-                        <div className={`w-2 h-2 rounded-full animate-pulse ${isDark ? 'bg-gray-500' : 'bg-gray-400'}`} />
-                        <div className={`w-2 h-2 rounded-full animate-pulse delay-75 ${isDark ? 'bg-gray-500' : 'bg-gray-400'}`} />
-                        <div className={`w-2 h-2 rounded-full animate-pulse delay-150 ${isDark ? 'bg-gray-500' : 'bg-gray-400'}`} />
+                        <div className={`w-2 h-2 rounded-full animate-pulse ${isDark ? 'bg-[#0B63CE]' : 'bg-gray-400'}`} />
+                        <div className={`w-2 h-2 rounded-full animate-pulse delay-75 ${isDark ? 'bg-[#0B63CE]' : 'bg-gray-400'}`} />
+                        <div className={`w-2 h-2 rounded-full animate-pulse delay-150 ${isDark ? 'bg-[#0B63CE]' : 'bg-gray-400'}`} />
                       </div>
                     </div>
                   </div>
@@ -389,9 +393,9 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         </div>
 
         {/* Input Area */}
-        <div className={`border-t ${isDark ? 'border-gray-800 bg-[#0A0A0A]' : 'border-gray-200 bg-white'}`}>
+        <div className={`border-t ${isDark ? 'border-[#0B63CE]/30 bg-[#001a33]' : 'border-gray-200 bg-white'}`}>
           <div className="max-w-4xl mx-auto w-full p-4">
-            <div className={`relative rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-gray-50 border border-gray-200'}`}>
+            <div className={`relative rounded-2xl ${isDark ? 'bg-[#0B63CE]/10 border border-[#0B63CE]/30' : 'bg-gray-50 border border-gray-200'}`}>
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -412,9 +416,9 @@ const GeneralChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 disabled={!input.trim() || isGenerating}
                 className={`absolute right-2 bottom-2 p-2 rounded-lg transition-all ${
                   input.trim() && !isGenerating
-                    ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                    ? 'bg-[#0B63CE] hover:bg-[#3399FF] text-white'
                     : isDark
-                    ? 'bg-white/10 text-gray-500'
+                    ? 'bg-[#0B63CE]/20 text-gray-500'
                     : 'bg-gray-200 text-gray-400'
                 } disabled:cursor-not-allowed`}
               >
