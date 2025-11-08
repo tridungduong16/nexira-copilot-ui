@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
 import LoadingOverlay from './ui/LoadingOverlay';
 
-type TabKey = 'general' | 'appearance' | 'models' | 'features' | 'privacy' | 'personalization' | 'integrations';
+type TabKey = 'general' | 'appearance' | 'features' | 'privacy' | 'personalization' | 'integrations';
 
 // Stable helper components moved outside to prevent remounting on every state change
 const Section: React.FC<{ title: string; description?: string; children: React.ReactNode }> = ({ title, description, children }) => {
@@ -267,7 +267,6 @@ const SettingsPage: React.FC = () => {
     () => [
       { key: 'general', label: t('settingsPage.tabs.general'), icon: Globe },
       { key: 'appearance', label: t('settingsPage.tabs.appearance'), icon: SlidersHorizontal },
-      { key: 'models', label: t('settingsPage.tabs.models'), icon: Sparkles },
       { key: 'personalization', label: t('settingsPage.tabs.personalization'), icon: Brain },
       { key: 'integrations', label: t('settingsPage.tabs.integrations'), icon: PlugZap },
       { key: 'features', label: t('settingsPage.tabs.features'), icon: Monitor },
@@ -420,10 +419,6 @@ const SettingsPage: React.FC = () => {
                   </div>
                 </Section>
 
-                <Section title={t('settingsPage.general.workspace')}>
-                  <Toggle checked={enableSuggestions} onChange={setEnableSuggestions} label={t('settingsPage.general.smartSuggestions')} description={t('settingsPage.general.smartSuggestionsDesc')} />
-                  <Toggle checked={rememberConversations} onChange={setRememberConversations} label={t('settingsPage.general.conversationMemory')} description={t('settingsPage.general.conversationMemoryDesc')} />
-                </Section>
               </div>
             )}
 
@@ -457,136 +452,6 @@ const SettingsPage: React.FC = () => {
               </div>
             )}
 
-            {activeTab === 'models' && (
-              <div className="space-y-6">
-                <Section title={t('settingsPage.models.providerModel')} description={t('settingsPage.subtitle')}>
-                  <div className="mb-4">
-                    <label className={`block text-xs mb-1 ${isDark ? 'text-gray-400' : 'text-gray-700'}`}>{t('settingsPage.models.provider')}</label>
-                    <div className="relative inline-flex">
-                      <select
-                        value={provider}
-                        onChange={(e) => setProvider(e.target.value)}
-                        className={`appearance-none rounded-xl px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-600 ${isDark ? 'bg-[#14171B] text-gray-200 border border-white/10' : 'bg-white text-gray-900 border border-gray-300'}`}
-                      >
-                        <option value="openai">OpenAI</option>
-                        <option value="anthropic">Anthropic</option>
-                        <option value="google">Google</option>
-                        <option value="local">Local</option>
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    </div>
-                  </div>
-                  {/* Provider-level API Key (optional) */}
-                  <div className="mb-4">
-                    <label className={`block text-xs mb-1 ${isDark ? 'text-gray-400' : 'text-gray-700'}`}>{t('settingsPage.models.providerApiKeyOptional')}</label>
-                    <div className="flex items-center gap-2">
-                      <input
-                        value={providerApiKey}
-                        onChange={(e) => { setProviderApiKey(e.target.value); setIsKeyVerified(false); }}
-                        placeholder={t('settingsPage.models.apiKeyOptional')}
-                        className={`flex-1 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 ${isDark ? 'bg-[#14171B] text-gray-200 placeholder-gray-500 border border-white/10' : 'bg-white text-gray-900 placeholder-gray-500 border border-gray-300'}`}
-                      />
-                      <button
-                        onClick={() => { setIsVerifyingKey(true); setTimeout(() => { setIsVerifyingKey(false); setIsKeyVerified(true); }, 800); }}
-                        className={`relative inline-flex h-6 items-center rounded-full px-3 text-xs font-medium ${isKeyVerified ? 'bg-green-600 text-white' : 'bg-blue-600 text-white'} disabled:opacity-50`}
-                        disabled={isVerifyingKey}
-                      >
-                        {isVerifyingKey ? t('settingsPage.models.verifying') : (isKeyVerified ? t('settingsPage.models.verified') : t('settingsPage.models.verify'))}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <label className={`block text-xs mb-1 ${isDark ? 'text-gray-400' : 'text-gray-700'}`}>{t('settingsPage.models.defaultModel')}</label>
-                    <div className="relative inline-flex">
-                      <select
-                        value={defaultModel}
-                        onChange={(e) => setDefaultModel(e.target.value)}
-                        className={`appearance-none rounded-xl px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-600 min-w-[260px] ${isDark ? 'bg-[#14171B] text-gray-200 border border-white/10' : 'bg-white text-gray-900 border border-gray-300'}`}
-                      >
-                        {enabledModelsForProvider.length === 0 ? (
-                          <option value="">None</option>
-                        ) : (
-                          enabledModelsForProvider.map((m) => (
-                            <option key={m} value={m}>{m}</option>
-                          ))
-                        )}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    </div>
-                  </div>
-
-                  {/* Manage models like Cursor */}
-                  <div className="mb-6">
-                    <h4 className={`text-sm font-medium mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>{t('settingsPage.models.modelsFor', { provider })}</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {availableModels.map((m) => (
-                        <div key={`${provider}-${m}`} className={`flex items-center justify-between rounded-xl border px-4 py-2 ${isDark ? 'border-white/10 bg-white/5' : 'border-gray-200 bg-white'}`}>
-                          <span className={`text-sm ${isDark ? 'text-gray-200' : 'text-gray-900'}`}>{m}</span>
-                          <button
-                            onClick={() => toggleModelEnabled(provider, m)}
-                            className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors ${
-                              (modelsEnabled[provider] || {})[m] ? 'bg-blue-600' : (isDark ? 'bg-white/20' : 'bg-gray-300')
-                            }`}
-                          >
-                            <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                              (modelsEnabled[provider] || {})[m] ? 'translate-x-5' : 'translate-x-1'
-                            }`} />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Add custom model */}
-                  <div className="space-y-3">
-                    <h4 className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{t('settingsPage.models.addCustomModel')}</h4>
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <input
-                        id="custom-model-id"
-                        placeholder={t('settingsPage.models.modelId')}
-                        className={`flex-1 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 ${isDark ? 'bg-[#14171B] text-gray-200 placeholder-gray-500 border border-white/10' : 'bg-white text-gray-900 placeholder-gray-500 border border-gray-300'}`}
-                      />
-                      <button
-                        onClick={() => {
-                          const idInput = document.getElementById('custom-model-id') as HTMLInputElement | null;
-                          const id = idInput?.value || '';
-                          addCustomModel(provider, id, '');
-                          if (idInput) idInput.value = '';
-                        }}
-                        className={`px-4 py-2 rounded-xl ${isDark ? 'bg-white/5 border border-white/10 text-gray-200 hover:bg-white/10' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'}`}
-                      >
-                        {t('settingsPage.models.add')}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Override OpenAI Base URL */}
-                  {(provider === 'openai' || provider === 'local') && (
-                  <div className="mt-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className={`text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>{t('settingsPage.models.overrideBaseURL')}</span>
-                      <button
-                        onClick={() => setOverrideBaseUrl(!overrideBaseUrl)}
-                        className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors ${overrideBaseUrl ? 'bg-blue-600' : (isDark ? 'bg-white/20' : 'bg-gray-300')}`}
-                      >
-                        <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${overrideBaseUrl ? 'translate-x-5' : 'translate-x-1'}`} />
-                      </button>
-                    </div>
-                    <input
-                      value={providerBaseUrl}
-                      onChange={(e) => setProviderBaseUrl(e.target.value)}
-                      disabled={!overrideBaseUrl}
-                      className={`w-full rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 ${isDark ? 'bg-[#14171B] text-gray-200 placeholder-gray-500 border border-white/10' : 'bg-white text-gray-900 placeholder-gray-500 border border-gray-300'} ${
-                        !overrideBaseUrl ? 'opacity-60 cursor-not-allowed' : ''
-                      }`}
-                      placeholder={provider === 'local' ? 'http://localhost:11434/api' : 'https://api.openai.com/v1'}
-                    />
-                  </div>
-                  )}
-                </Section>
-              </div>
-            )}
 
             {activeTab === 'personalization' && (
               <div className="space-y-6">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Users, MessageSquare, Settings as SettingsIcon, Globe } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { agentData } from '../data/agentData';
@@ -12,27 +12,27 @@ const HomePage: React.FC = () => {
 
   const highlights = [
     {
-      icon: Users,
+      avatar: '/assets/icon6.png',
       title: 'Multi-disciplinary AI agents',
       description: 'Access specialized agents across design, content, HR, and development',
     },
     {
-      icon: Users,
+      avatar: '/assets/icon7.png',
       title: 'Context-aware collaboration',
       description: 'Agents work together seamlessly for complex projects',
     },
     {
-      icon: MessageSquare,
+      avatar: '/assets/icon8.png',
       title: 'Human-like conversations',
       description: 'Natural and intuitive conversational workflow',
     },
     {
-      icon: SettingsIcon,
+      avatar: '/assets/icon9.png',
       title: 'Tool integrations',
       description: 'Connect with your favorite apps and creative tools',
     },
     {
-      icon: Globe,
+      avatar: '/assets/icon10.png',
       title: 'Scalable for all teams',
       description: 'Perfect for startups, teams, and enterprises',
     },
@@ -101,16 +101,6 @@ const HomePage: React.FC = () => {
               >
                 Explore Agents
               </button>
-              <button
-                onClick={() => navigate('/chat')}
-                className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 border ${
-                  isDark
-                    ? 'bg-white/10 border-white/30 text-white hover:bg-white/20'
-                    : 'bg-white border-[#0B63CE]/30 text-[#0B63CE] hover:border-[#0B63CE]/50'
-                }`}
-              >
-                Start Chat
-              </button>
             </div>
           </div>
         </div>
@@ -164,7 +154,6 @@ const HomePage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {highlights.map((highlight, index) => {
-              const Icon = highlight.icon;
               return (
                 <div
                   key={index}
@@ -175,8 +164,12 @@ const HomePage: React.FC = () => {
                   }}
                 >
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="p-3 rounded-xl" style={{ background: 'rgba(0, 191, 255, 0.15)' }}>
-                      <Icon className="w-6 h-6 text-[#00BFFF]" />
+                    <div className="p-1 rounded-xl bg-white">
+                      <img
+                        src={highlight.avatar}
+                        alt={highlight.title}
+                        className="w-12 h-12 object-cover rounded-lg"
+                      />
                     </div>
                     <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-[#001F3F]'}`}>
                       {highlight.title}
@@ -192,30 +185,6 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="p-12 rounded-3xl border"
-            style={{
-              background: 'rgba(11, 99, 206, 0.08)',
-              borderColor: 'rgba(11, 99, 206, 0.3)'
-            }}>
-            <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${isDark ? 'text-white' : 'text-[#001F3F]'}`}>
-              Ready to Transform Your Workflow?
-            </h2>
-            <p className={`text-lg mb-8 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-              Join thousands of teams already using Nexira Copilot to accelerate their work and unleash creativity.
-            </p>
-            <button
-              onClick={() => navigate('/marketplace')}
-              className="px-10 py-4 rounded-full font-semibold text-white text-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
-              style={{ background: 'linear-gradient(90deg, #0B63CE, #3399FF)' }}
-            >
-              Get Started Free
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

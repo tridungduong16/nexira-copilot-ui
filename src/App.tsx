@@ -13,7 +13,6 @@ import SalesAgentPage from './components/SalesAgentPage';
 import QAAgentPage from './components/QAAgentPage';
 import UIUXAgentPage from './components/UIUXAgentPage';
 import DataAgentPage from './components/DataAgentPage';
-import TelesalesAgentPage from './components/TelesalesAgentPage';
 import HRAgentPage from './components/HRAgentPage';
 import DesignAgentPage from './components/DesignAgentPage';
 import TrainingAgentPage from './components/TrainingAgentPage';
@@ -60,7 +59,6 @@ function App() {
       <Route path="/qa-analyst" element={<QAAgentPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/uiux-analyst" element={<UIUXAgentPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/data-analyst" element={<DataAgentPage onBack={() => navigate('/marketplace')} />} />
-      <Route path="/telesales-analyst" element={<TelesalesAgentPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/hr-analyst" element={<HRAgentPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/design-analyst" element={<DesignAgentPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/training-analyst" element={<TrainingAgentPage onBack={() => navigate('/marketplace')} />} />

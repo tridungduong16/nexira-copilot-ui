@@ -5,7 +5,6 @@ import {
   BarChart3,
   Palette,
   GraduationCap,
-  Phone,
   CheckCircle,
   Settings,
 } from 'lucide-react';
@@ -18,15 +17,6 @@ export const agentData = [
     color: 'from-blue-500 to-blue-600',
     categoryKey: 'categories.dataTeam',
     rating: 4.7,
-    popular: false,
-  },
-  {
-    id: 'telesales',
-    icon: Phone,
-    avatar: '/assets/icon2.png',
-    color: 'from-green-500 to-green-600',
-    categoryKey: 'categories.telesales',
-    rating: 4.6,
     popular: false,
   },
   {
