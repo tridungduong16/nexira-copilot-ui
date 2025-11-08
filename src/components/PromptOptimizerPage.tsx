@@ -71,13 +71,13 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [variants, setVariants] = useState<PromptVariant[]>([
     {
       id: '1',
-      title: t('promptOptimizerPage.version1'),
+      title: 'Version 1',
       prompt: '',
       rating: 0
     },
     {
       id: '2',
-      title: t('promptOptimizerPage.version2'),
+      title: 'Version 2',
       prompt: '',
       rating: 0
     }
@@ -86,7 +86,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   useEffect(() => {
     setVariants(prev => prev.map(v => ({
       ...v,
-      title: v.id === '1' ? t('promptOptimizerPage.version1') : t('promptOptimizerPage.version2')
+      title: v.id === '1' ? 'Version 1' : 'Version 2'
     })));
   }, [language]);
 
@@ -245,13 +245,13 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     setVariants([
       {
         id: '1',
-        title: t('promptOptimizerPage.version1'),
+        title: 'Version 1',
         prompt: '',
         rating: 0
       },
       {
         id: '2',
-        title: t('promptOptimizerPage.version2'),
+        title: 'Version 2',
         prompt: '',
         rating: 0
       }
@@ -269,13 +269,13 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       setVariants([
         {
           id: '1',
-          title: t('promptOptimizerPage.version1'),
+          title: 'Version 1',
           prompt: response.optimised_prompt_1 || '',
           rating: 0
         },
         {
           id: '2',
-          title: t('promptOptimizerPage.version2'),
+          title: 'Version 2',
           prompt: response.optimised_prompt_2 || '',
           rating: 0
         }
@@ -408,9 +408,6 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 <FileText className="h-5 w-5 mr-2 text-[#0B63CE]" />
                 {t('promptOptimizerPage.originalPrompt')}
               </h2>
-              <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'} mt-1`}>
-                {t('promptOptimizerPage.originalPromptSubtitle')}
-              </p>
             </div>
 
             <div className="p-6">
@@ -472,9 +469,6 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 <BarChart3 className="h-5 w-5 mr-2 text-[#0B63CE]" />
                 {t('promptOptimizerPage.comparisonTitle')}
               </h2>
-              <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'} mt-1`}>
-                {t('promptOptimizerPage.comparisonSubtitle')}
-              </p>
             </div>
 
             <div className="p-6">
@@ -528,45 +522,57 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                         </button>
                       </div>
                     </div>
-
-                    {(testResults[variant.id] || testErrors[variant.id]) && (
-                      <div className={`p-4 border-t ${isDark ? 'border-white/10 bg-white/5' : 'border-gray-200 bg-gray-50'}`}>
-                        <h4 className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'} mb-2 flex items-center`}>
-                          <Zap className="h-4 w-4 mr-1 text-[#0B63CE]" />
-                          Test Result
-                        </h4>
-
-                        {testErrors[variant.id] && (
-                          <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-start mb-3">
-                            <AlertCircle className="h-4 w-4 mr-2 flex-shrink-0 mt-0.5" />
-                            <p>{testErrors[variant.id]}</p>
-                          </div>
-                        )}
-
-                        {testResults[variant.id] && (
-                          <div className={`p-3 border rounded-lg ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-gray-300'}`}>
-                            <div className="flex items-start justify-between mb-2">
-                              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'} uppercase tracking-wide`}>
-                                Generated Response
-                              </span>
-                              <button
-                                className={`p-1 rounded transition-colors ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
-                                onClick={() => handleCopyPrompt(testResults[variant.id])}
-                                title="Copy result"
-                              >
-                                <Copy className="h-3 w-3 text-gray-500" />
-                              </button>
-                            </div>
-                            <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-800'} whitespace-pre-wrap`}>
-                              {testResults[variant.id]}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    )}
                   </div>
                 ))}
               </div>
+
+              {/* Test Results Section */}
+              {(Object.keys(testResults).length > 0 || Object.keys(testErrors).length > 0) && (
+                <div className={`mt-6 p-6 rounded-xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-gray-50 border border-gray-200'}`}>
+                  <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'} mb-4 flex items-center`}>
+                    <Sparkles className="h-5 w-5 mr-2 text-[#0B63CE]" />
+                    Test Results
+                  </h3>
+
+                  <div className="space-y-4">
+                    {variants.map((variant) => (
+                      (testResults[variant.id] || testErrors[variant.id]) && (
+                        <div key={variant.id} className={`p-4 rounded-lg ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
+                          <div className="flex items-center justify-between mb-3">
+                            <h4 className={`text-sm font-semibold ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
+                              {variant.title}
+                            </h4>
+                            {testResults[variant.id] && (
+                              <button
+                                className={`p-1.5 rounded transition-colors ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+                                onClick={() => handleCopyPrompt(testResults[variant.id])}
+                                title="Copy result"
+                              >
+                                <Copy className="h-4 w-4 text-gray-500" />
+                              </button>
+                            )}
+                          </div>
+
+                          {testErrors[variant.id] && (
+                            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-start">
+                              <AlertCircle className="h-4 w-4 mr-2 flex-shrink-0 mt-0.5" />
+                              <p>{testErrors[variant.id]}</p>
+                            </div>
+                          )}
+
+                          {testResults[variant.id] && (
+                            <div className={`p-3 rounded-lg ${isDark ? 'bg-[#0B63CE]/5 border border-[#0B63CE]/20' : 'bg-blue-50 border border-blue-200'}`}>
+                              <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-800'} whitespace-pre-wrap leading-relaxed`}>
+                                {testResults[variant.id]}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
