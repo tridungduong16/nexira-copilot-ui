@@ -23,7 +23,7 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
   const { resolvedTheme } = useTheme();
 
   const agents = agentData.map(agent => {
-    const agentId = agent.id as 'data' | 'telesales' | 'qa' | 'hr' | 'marketing' | 'gamedev' | 'design' | 'training' | 'prompt-optimizer';
+    const agentId = agent.id as 'data' | 'telesales' | 'qa' | 'hr' | 'marketing' | 'gamedev' | 'design' | 'training' | 'prompt-optimizer' | 'research-documentation' | 'game-mechanics' | 'frontend-dev' | 'finance-accounting' | 'employee-training' | 'compliance-legal';
     return {
       ...agent,
       name: t(`agentsPage.${agentId}.name`),
@@ -45,6 +45,12 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
     { id: 'design', name: t('categories.design') },
     { id: 'training', name: t('categories.training') },
     { id: 'promptOptimizer', name: t('categories.promptOptimizer') },
+    { id: 'researchDocumentation', name: t('categories.researchDocumentation') },
+    { id: 'gameMechanics', name: t('categories.gameMechanics') },
+    { id: 'frontendDev', name: t('categories.frontendDev') },
+    { id: 'financeAccounting', name: t('categories.financeAccounting') },
+    { id: 'employeeTraining', name: t('categories.employeeTraining') },
+    { id: 'complianceLegal', name: t('categories.complianceLegal') },
   ], [language, t]);
 
   const filteredAgents = agents.filter(agent => {

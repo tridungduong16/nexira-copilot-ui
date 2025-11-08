@@ -170,6 +170,36 @@ export const translations = {
         name: 'Prompt Optimizer Agent',
         description: 'Write and optimize effective AI prompts',
         features: ["Prompt optimization", "Result comparison", "Template library", "Multi-model testing"]
+      },
+      'research-documentation': {
+        name: 'Research & Documentation Agent',
+        description: 'Create comprehensive research reports and documentation',
+        features: ['Research synthesis', 'Technical documentation', 'Literature review', 'Knowledge base creation']
+      },
+      'game-mechanics': {
+        name: 'Game Mechanics Agent',
+        description: 'Design and balance engaging game mechanics',
+        features: ['Mechanics design', 'Game balancing', 'System documentation', 'Progression systems']
+      },
+      'frontend-dev': {
+        name: 'Frontend Dev Agent',
+        description: 'Build modern responsive web interfaces',
+        features: ['React components', 'UI implementation', 'Responsive design', 'Code optimization']
+      },
+      'finance-accounting': {
+        name: 'Finance & Accounting Agent',
+        description: 'Manage financial analysis and accounting tasks',
+        features: ['Financial reports', 'Budget analysis', 'Expense tracking', 'Tax preparation']
+      },
+      'employee-training': {
+        name: 'Employee Training Agent',
+        description: 'Create engaging employee training programs',
+        features: ['Training modules', 'Skill assessments', 'Onboarding materials', 'Progress tracking']
+      },
+      'compliance-legal': {
+        name: 'Compliance & Legal Agent',
+        description: 'Ensure regulatory compliance and legal documentation',
+        features: ['Policy creation', 'Compliance audits', 'Legal research', 'Contract review']
       }
     },
     dataAgent: {
@@ -223,7 +253,13 @@ export const translations = {
       gameDevelopment: 'Game Development',
       design: 'Design',
       training: 'Training',
-      promptOptimizer: 'Prompt Optimizer'
+      promptOptimizer: 'Prompt Optimizer',
+      researchDocumentation: 'Research & Documentation',
+      gameMechanics: 'Game Mechanics',
+      frontendDev: 'Frontend Development',
+      financeAccounting: 'Finance & Accounting',
+      employeeTraining: 'Employee Training',
+      complianceLegal: 'Compliance & Legal'
     },
     recentActivity: {
       title: "Recent Activity",
