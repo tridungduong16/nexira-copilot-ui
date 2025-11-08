@@ -35,6 +35,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useEffect } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { trackToolUsage } from './tracking/tracker';
+import { promptOptimizerApi, PromptType } from '../services/promptOptimizerApi';
 
 interface PromptVariant {
   id: string;
@@ -61,8 +62,6 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [selectedLanguage, setSelectedLanguage] = useState('vietnamese');
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationError, setOptimizationError] = useState<string | null>(null);
-  const [streamingText, setStreamingText] = useState('');
-  const [streamingPhase, setStreamingPhase] = useState<'raw' | 'complete'>('raw');
 
   const [testingPrompt, setTestingPrompt] = useState<string | null>(null);
   const [testResults, setTestResults] = useState<Record<string, string>>({});
@@ -117,7 +116,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
       description: t('promptOptimizerPage.useCases.textDescription'),
-      apiType: 'text_generation'
+      apiType: PromptType.text_generation
     },
     {
       id: 'image',
@@ -126,7 +125,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-purple-600',
       bgColor: 'bg-purple-50',
       description: t('promptOptimizerPage.useCases.imageDescription'),
-      apiType: 'image_generation'
+      apiType: PromptType.image_generation
     },
     {
       id: 'code',
@@ -135,7 +134,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-green-600',
       bgColor: 'bg-green-50',
       description: t('promptOptimizerPage.useCases.codeDescription'),
-      apiType: 'programming'
+      apiType: PromptType.programming
     },
     {
       id: 'analysis',
@@ -144,7 +143,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-orange-600',
       bgColor: 'bg-orange-50',
       description: t('promptOptimizerPage.useCases.analysisDescription'),
-      apiType: 'data_analysis'
+      apiType: PromptType.data_analysis
     },
     {
       id: 'conversation',
@@ -153,7 +152,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-pink-600',
       bgColor: 'bg-pink-50',
       description: t('promptOptimizerPage.useCases.conversationDescription'),
-      apiType: 'dialogue'
+      apiType: PromptType.dialogue
     },
     {
       id: 'creative',
@@ -162,7 +161,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
       description: t('promptOptimizerPage.useCases.creativeDescription'),
-      apiType: 'creative'
+      apiType: PromptType.creative
     },
     {
       id: 'translation',
@@ -171,7 +170,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-cyan-600',
       bgColor: 'bg-cyan-50',
       description: t('promptOptimizerPage.useCases.translationDescription'),
-      apiType: 'translation'
+      apiType: PromptType.translation
     },
     {
       id: 'education',
@@ -180,7 +179,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-emerald-600',
       bgColor: 'bg-emerald-50',
       description: t('promptOptimizerPage.useCases.educationDescription'),
-      apiType: 'education'
+      apiType: PromptType.education
     },
     {
       id: 'video',
@@ -189,7 +188,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-red-600',
       bgColor: 'bg-red-50',
       description: t('promptOptimizerPage.useCases.videoDescription'),
-      apiType: 'video_audio'
+      apiType: PromptType.video_audio
     },
     {
       id: 'research',
@@ -198,7 +197,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-gray-600',
       bgColor: 'bg-gray-50',
       description: t('promptOptimizerPage.useCases.researchDescription'),
-      apiType: 'research'
+      apiType: PromptType.research
     },
     {
       id: 'technical',
@@ -207,7 +206,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-50',
       description: t('promptOptimizerPage.useCases.technicalDescription'),
-      apiType: 'technical'
+      apiType: PromptType.technical
     },
     {
       id: 'mobile',
@@ -216,7 +215,7 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       color: 'text-violet-600',
       bgColor: 'bg-violet-50',
       description: t('promptOptimizerPage.useCases.mobileDescription'),
-      apiType: 'mobile_app'
+      apiType: PromptType.mobile_app
     }
   ];
 
@@ -243,8 +242,6 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
     setIsOptimizing(true);
     setOptimizationError(null);
-    setStreamingText('');
-    setStreamingPhase('raw');
     setVariants([
       {
         id: '1',
@@ -261,83 +258,34 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     ]);
 
     try {
-      const sessionId = `prompt_optimizer_${Date.now()}`;
-      const selectedUseCaseType = useCases.find(uc => uc.id === selectedUseCase)?.apiType || 'text_generation';
+      const selectedUseCaseType = useCases.find(uc => uc.id === selectedUseCase)?.apiType || PromptType.text_generation;
 
-      const requestBody = {
-        tool_type: 'prompt_optimizer',
-        session_id: sessionId,
-        message: originalPrompt,
+      const response = await promptOptimizerApi.optimizePrompt({
+        user_request: originalPrompt,
         language: selectedLanguage,
-        model: 'auto',
-        metadata: {
-          sub_tool_type: selectedUseCaseType
-        }
-      };
-
-      const response = await fetch(import.meta.env.VITE_API_URL + '/streaming/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'text/event-stream'
-        },
-        body: JSON.stringify(requestBody)
+        prompt_type: selectedUseCaseType
       });
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-
-      if (reader) {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n');
-
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              const jsonStr = line.slice(6);
-              try {
-                const event = JSON.parse(jsonStr);
-
-                if (event.type === 'assistant_chunk') {
-                  const content = event.content || '';
-                  flushSync(() => {
-                    setStreamingText(prev => prev + content);
-                  });
-                } else if (event.type === 'structured_result') {
-                  setStreamingPhase('complete');
-                  const fields = event.fields;
-
-                  setVariants([
-                    {
-                      id: '1',
-                      title: t('promptOptimizerPage.version1'),
-                      prompt: fields.optimised_prompt_1 || '',
-                      rating: 0
-                    },
-                    {
-                      id: '2',
-                      title: t('promptOptimizerPage.version2'),
-                      prompt: fields.optimised_prompt_2 || '',
-                      rating: 0
-                    }
-                  ]);
-                }
-              } catch (parseError) {
-                console.error('Error parsing SSE data:', parseError);
-              }
-            }
-          }
+      setVariants([
+        {
+          id: '1',
+          title: t('promptOptimizerPage.version1'),
+          prompt: response.optimised_prompt_1 || '',
+          rating: 0
+        },
+        {
+          id: '2',
+          title: t('promptOptimizerPage.version2'),
+          prompt: response.optimised_prompt_2 || '',
+          rating: 0
         }
-      }
+      ]);
 
-      await trackToolUsage('prompt_optimizer', selectedUseCase, requestBody);
+      await trackToolUsage('prompt_optimizer', selectedUseCase, {
+        user_request: originalPrompt,
+        language: selectedLanguage,
+        prompt_type: selectedUseCaseType
+      });
     } catch (error) {
       console.error('Error optimizing prompt:', error);
       setOptimizationError(t('promptOptimizerPage.error'));
@@ -517,25 +465,6 @@ const PromptOptimizerPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
               )}
             </div>
           </div>
-
-          {streamingText && streamingPhase === 'raw' && (
-            <div className={`rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
-              <div className={`p-6 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
-                <h2 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'} flex items-center`}>
-                  <Loader className="h-5 w-5 mr-2 text-[#0B63CE] animate-spin" />
-                  Streaming Response...
-                </h2>
-              </div>
-              <div className="p-6">
-                <div className={`${isDark ? 'bg-white/5' : 'bg-gray-50'} rounded-lg p-4`}>
-                  <div className={`${isDark ? 'text-gray-200' : 'text-gray-800'} whitespace-pre-wrap font-mono text-sm leading-relaxed`}>
-                    {streamingText}
-                    <span className="inline-block w-2 h-4 ml-1 bg-[#0B63CE] animate-pulse"></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div className={`rounded-2xl ${isDark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-200'}`}>
             <div className={`p-6 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
