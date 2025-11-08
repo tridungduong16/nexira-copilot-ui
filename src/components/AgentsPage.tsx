@@ -107,19 +107,24 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
                     <div
                       key={agent.id}
                       onClick={() => {
-                        if (onAgentSelect) {
+                        if (onAgentSelect && !agent.comingSoon) {
                           setIsNavigating(true);
                           setTimeout(() => onAgentSelect(agent.id), 150);
                         }
                       }}
-                      className={`rounded-2xl transition-all duration-200 ease-out-smooth flex flex-col overflow-hidden cursor-pointer group border ${resolvedTheme === 'dark' ? 'bg-[#0B63CE]/5 border-[#0B63CE]/30 hover:border-[#00BFFF]/50 hover:shadow-lg' : 'bg-white border-[#0B63CE]/20 hover:border-[#0B63CE]/40 hover:shadow-lg'}`}
+                      className={`rounded-2xl transition-all duration-200 ease-out-smooth flex flex-col overflow-hidden border ${agent.comingSoon ? 'cursor-not-allowed opacity-75' : 'cursor-pointer group'} ${resolvedTheme === 'dark' ? 'bg-[#0B63CE]/5 border-[#0B63CE]/30' : 'bg-white border-[#0B63CE]/20'} ${!agent.comingSoon && (resolvedTheme === 'dark' ? 'hover:border-[#00BFFF]/50 hover:shadow-lg' : 'hover:border-[#0B63CE]/40 hover:shadow-lg')}`}
                     >
-                      <div className={`p-6 bg-gradient-to-br ${agent.color} text-white flex justify-between items-start`}>
+                      <div className={`p-6 bg-gradient-to-br ${agent.color} text-white flex justify-between items-start relative`}>
+                        {agent.comingSoon && (
+                          <div className="absolute top-4 right-4 bg-yellow-500 text-gray-900 px-3 py-1 rounded-full text-xs font-bold">
+                            Coming Soon
+                          </div>
+                        )}
                         <div>
                           <h3 className="text-xl font-semibold">{agent.name}</h3>
                           <p className="text-xs opacity-90">{agent.category}</p>
                         </div>
-                        <div className="p-1 bg-white rounded-xl">
+                        <div className="p-1 bg-white rounded-xl" style={{ marginTop: agent.comingSoon ? '32px' : '0' }}>
                           <img
                             src={agent.avatar}
                             alt={agent.name}
@@ -150,11 +155,12 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
                           </div>
                         </div>
                         <button
-                          className="w-full px-6 py-3 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center group-hover:scale-[1.02] transform-gpu hover:shadow-lg"
+                          disabled={agent.comingSoon}
+                          className={`w-full px-6 py-3 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center ${!agent.comingSoon ? 'group-hover:scale-[1.02] transform-gpu hover:shadow-lg' : 'opacity-60 cursor-not-allowed'}`}
                           style={{ background: 'linear-gradient(90deg, #0B63CE, #3399FF)' }}
                         >
-                          <span>{t('launchAgent')}</span>
-                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                          <span>{agent.comingSoon ? 'Coming Soon' : t('launchAgent')}</span>
+                          {!agent.comingSoon && <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />}
                         </button>
                       </div>
                     </div>
