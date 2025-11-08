@@ -262,33 +262,45 @@ const GameDevAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className={`flex items-center gap-2 ${resolvedTheme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors`}
               >
-                <ArrowLeft className="h-5 w-5 text-gray-500" />
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                <span>Back to Marketplace</span>
               </button>
-              <div className="flex items-center space-x-3">
-                <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-3 rounded-xl">
-                  <Gamepad2 className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h1 className={`text-2xl font-bold ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>🎮 GameDev Copilot</h1>
-                  <p className={`text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Accelerate your game development workflow with a specialized AI assistant</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className={`${resolvedTheme === 'dark' ? 'bg-green-700 text-green-100' : 'bg-green-100 text-green-800'} px-3 py-1 rounded-full text-sm font-medium border border-green-200`}>
-                ✅ AI Ready
-              </div>
-              <div className={`${resolvedTheme === 'dark' ? 'bg-purple-700 text-purple-100' : 'bg-purple-100 text-purple-800'} px-3 py-1 rounded-full text-sm font-medium border border-purple-200`}>
-                🎮 GameDev Mode
-              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 ${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-gray-50'}`}>
+      {/* Agent Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="p-1 rounded-xl bg-white">
+              <img
+                src="/assets/icon6.png"
+                alt="GameDev Copilot"
+                className="w-16 h-16 object-cover rounded-lg"
+              />
+            </div>
+            <div>
+              <h1 className={`text-3xl font-bold ${resolvedTheme === 'dark' ? 'text-white' : 'text-[#001F3F]'}`}>
+                GameDev Copilot
+              </h1>
+              <p className={`text-lg ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                Accelerate your game development workflow with a specialized AI assistant
+              </p>
+            </div>
+          </div>
+          <p className={`${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'} max-w-4xl`}>
+            Build games faster with AI-powered code generation, asset creation, and design assistance tailored for game developers.
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Main Content Panel */}
           <div className="lg:col-span-3 space-y-6">
