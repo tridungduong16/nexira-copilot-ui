@@ -86,6 +86,16 @@ export const translations = {
     reviews: '{count} reviews',
     launchAgent: 'Launch Agent',
     agentsPage: {
+      'general-chat': {
+        name: 'General Chat',
+        description: 'Your intelligent AI assistant for any conversation',
+        features: [
+          'Natural conversations',
+          'Answer questions',
+          'Help with tasks',
+          'Creative assistance'
+        ]
+      },
       data: {
         name: 'Data Team',
         description: 'Analyze data and generate intelligent insights',
@@ -245,6 +255,7 @@ export const translations = {
     },
     categories: {
       all: 'All',
+      generalChat: 'General Chat',
       dataTeam: 'Data Team',
       telesales: 'Telesales',
       qaQc: 'QA & QC',

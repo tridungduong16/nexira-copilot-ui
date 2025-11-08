@@ -23,7 +23,7 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
   const { resolvedTheme } = useTheme();
 
   const agents = agentData.map(agent => {
-    const agentId = agent.id as 'data' | 'telesales' | 'qa' | 'hr' | 'marketing' | 'gamedev' | 'design' | 'training' | 'prompt-optimizer' | 'research-documentation' | 'game-mechanics' | 'frontend-dev' | 'finance-accounting' | 'employee-training' | 'compliance-legal';
+    const agentId = agent.id as 'general-chat' | 'data' | 'telesales' | 'qa' | 'hr' | 'marketing' | 'gamedev' | 'design' | 'training' | 'prompt-optimizer' | 'research-documentation' | 'game-mechanics' | 'frontend-dev' | 'finance-accounting' | 'employee-training' | 'compliance-legal';
     return {
       ...agent,
       name: t(`agentsPage.${agentId}.name`),
@@ -36,6 +36,7 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
 
   const categories = React.useMemo(() => [
     { id: 'all', name: t('categories.all') },
+    { id: 'generalChat', name: t('categories.generalChat') },
     { id: 'dataTeam', name: t('categories.dataTeam') },
     { id: 'telesales', name: t('categories.telesales') },
     { id: 'qaQc', name: t('categories.qaQc') },

@@ -16,6 +16,7 @@ import DataAgentPage from './components/DataAgentPage';
 import HRAgentPage from './components/HRAgentPage';
 import DesignAgentPage from './components/DesignAgentPage';
 import TrainingAgentPage from './components/TrainingAgentPage';
+import GeneralChatPage from './components/GeneralChatPage';
 import KnowledgeBasePage from './components/KnowledgeBasePage';
 import HelpPage from './components/HelpPage';
 import SettingsPage from './components/SettingsPage';
@@ -51,6 +52,7 @@ function App() {
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/marketplace" element={<AgentsPage onAgentSelect={(agentId) => navigate(`/${agentId}-analyst`)} />} />
+      <Route path="/general-chat-analyst" element={<GeneralChatPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/finance-analyst" element={<FinanceAnalystPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/prompt-optimizer-analyst" element={<PromptOptimizerPage onBack={() => navigate('/marketplace')} />} />
       <Route path="/marketing-analyst" element={<MarketingAgentPage onBack={() => navigate('/marketplace')} />} />
