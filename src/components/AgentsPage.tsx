@@ -27,10 +27,10 @@ const AgentsPage: React.FC<AgentsPageProps> = ({ onAgentSelect }) => {
     return {
       ...agent,
       name: t(`agentsPage.${agentId}.name`),
-      description: t(`agentsPage.${agentId}.description`),
-      features: (t(`agentsPage.${agentId}.features`) as unknown as string[]),
+      description: agent.description || t(`agentsPage.${agentId}.description`),
+      features: agent.features || (t(`agentsPage.${agentId}.features`) as unknown as string[]),
       category: t(agent.categoryKey),
-      usage: t('usageThisWeek', { count: Math.floor(Math.random() * 200) + 50 }),
+      usage: agent.tasksThisWeek ? t('usageThisWeek', { count: agent.tasksThisWeek }) : t('usageThisWeek', { count: Math.floor(Math.random() * 200) + 50 }),
     };
   });
 
