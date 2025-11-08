@@ -271,7 +271,7 @@ const MarketingAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   };
 
   return (
-    <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#0F172A]' : 'bg-gray-50'}`}>
+    <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}>
       {/* Header */}
 
       <AgentHeader

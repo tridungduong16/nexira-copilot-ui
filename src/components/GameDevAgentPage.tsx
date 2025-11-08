@@ -254,7 +254,7 @@ const GameDevAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   };
 
   return (
-    <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#0B172A] text-gray-200' : 'bg-transparent text-gray-900'}`}>
+    <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#001F3F] text-gray-200' : 'bg-[#E6F0FF] text-gray-900'}`}>
       {/* Header */}
       <div className={`${resolvedTheme === 'dark' ? 'bg-[#1E293B]' : 'bg-white'} border-b ${resolvedTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'} sticky top-0 z-40`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

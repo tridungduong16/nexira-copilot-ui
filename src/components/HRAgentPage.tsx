@@ -316,7 +316,7 @@ const HRAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   ];
 
   return (
-    <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#0B172A]' : 'bg-gray-50'}`}>
+    <div className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}>
       {/* Header */}
       <AgentHeader
         icon={<Users />}

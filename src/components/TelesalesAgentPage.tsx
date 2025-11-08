@@ -234,12 +234,11 @@ const TelesalesAgentPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
   return (
   <div
+    className={`min-h-screen ${resolvedTheme === 'dark' ? 'bg-[#001F3F]' : 'bg-[#E6F0FF]'}`}
     style={{
       margin: "0 auto",
       fontFamily:
         "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif",
-      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      minHeight: "100vh",
       padding: 20,
     }}
   >
